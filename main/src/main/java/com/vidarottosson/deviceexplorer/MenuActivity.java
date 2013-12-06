@@ -34,7 +34,10 @@ public class MenuActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.pictures:
-                // Idk what's supposed to happen
+                // TODO: Find Pictures folder and display list
+                return true;
+            case R.id.videos:
+                // TODO: Find Videos folder and display list
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
