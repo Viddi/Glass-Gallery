@@ -9,10 +9,12 @@ public class FileItem {
 
     private String path;
     private int fileType;
+    private String name;
 
-    public FileItem(String path, int fileType) {
+    public FileItem(String path, int fileType, String name) {
         this.path = path;
         this.fileType = fileType;
+        this.name = name;
     }
 
     public String getPath() {
@@ -29,6 +31,14 @@ public class FileItem {
 
     public void setFileType(int fileType) {
         this.fileType = fileType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
