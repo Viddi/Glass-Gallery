@@ -36,7 +36,7 @@ public class DeviceExplorerService extends Service {
             Log.d(TAG, "Publishing LiveCard");
             mLiveCard = mTimelineManager.getLiveCard(LIVE_CARD_ID);
 
-            RemoteViews views = new RemoteViews(this.getPackageName(), R.layout.live_card);
+            RemoteViews views = new RemoteViews(getPackageName(), R.layout.activity_main);
             mLiveCard.setViews(views);
 
 //            mLiveCard.enableDirectRendering(true);

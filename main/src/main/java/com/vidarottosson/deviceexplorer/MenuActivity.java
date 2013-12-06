@@ -2,13 +2,18 @@ package com.vidarottosson.deviceexplorer;
 //  Created by Viddi on 12/5/13.
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.vidarottosson.deviceexplorer.pics.PictureExplorerActivity;
+
 public class MenuActivity extends Activity {
     public static final String TAG = MenuActivity.class.getSimpleName();
+
+    public static final int INTENT_PICTURES = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,8 @@ public class MenuActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.pictures:
-                // TODO: Find Pictures folder and display list
+                Intent picIntent = new Intent(this, PictureExplorerActivity.class);
+                startActivityForResult(picIntent, INTENT_PICTURES);
                 return true;
             case R.id.videos:
                 // TODO: Find Videos folder and display list
@@ -47,5 +53,12 @@ public class MenuActivity extends Activity {
     @Override
     public void onOptionsMenuClosed(Menu menu) {
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK && requestCode == INTENT_PICTURES) {
+
+        }
     }
 }
