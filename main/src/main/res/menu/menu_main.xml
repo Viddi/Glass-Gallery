@@ -5,4 +5,9 @@
             android:id="@+id/pictures"
             android:title="@string/explorer_pictures"
             android:icon="@drawable/ic_photo" />
+
+    <item
+            android:id="@+id/videso"
+            android:title="@string/explorer_videos"
+            android:icon="@drawable/ic_video" />
 </menu>

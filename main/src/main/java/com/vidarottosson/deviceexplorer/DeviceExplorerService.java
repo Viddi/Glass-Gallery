@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.TimelineManager;
@@ -21,10 +22,7 @@ public class DeviceExplorerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
         mTimelineManager = TimelineManager.from(this);
-
-
     }
 
     @Override
@@ -38,7 +36,10 @@ public class DeviceExplorerService extends Service {
             Log.d(TAG, "Publishing LiveCard");
             mLiveCard = mTimelineManager.getLiveCard(LIVE_CARD_ID);
 
-            mLiveCard.enableDirectRendering(true);
+            RemoteViews views = new RemoteViews(this.getPackageName(), R.layout.live_card);
+            mLiveCard.setViews(views);
+
+//            mLiveCard.enableDirectRendering(true);
             mLiveCard.setNonSilent(true);
 
             Intent menuIntent = new Intent(this, MenuActivity.class);
