@@ -59,8 +59,6 @@ public class DeviceExplorerService extends Service {
             mLiveCard = null;
         }
 
-
-
         super.onDestroy();
     }
 }
