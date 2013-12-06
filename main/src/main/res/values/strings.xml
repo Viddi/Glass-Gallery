@@ -2,4 +2,5 @@
     <string name="app_name">Device Explorer</string>
     <string name="explorer_pictures">Pictures</string>
     <string name="explorer_videos">Videos</string>
+    <string name="show_device_explorer">Device Explorer</string>
 </resources>
