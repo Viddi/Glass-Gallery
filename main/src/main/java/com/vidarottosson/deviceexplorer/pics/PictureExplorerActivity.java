@@ -3,14 +3,11 @@ package com.vidarottosson.deviceexplorer.pics;
 //  Created by Viddi on 12/6/13.
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 
 import com.google.android.glass.widget.CardScrollView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,35 +17,30 @@ public class PictureExplorerActivity extends Activity {
 
 	private CardScrollView mView;
 	private PicturesScrollAdapter mAdapter;
-	private Cursor mCursor;
-	private int mColumnIndex;
-	private List<Uri> mUris;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		queryGallery();
-		mAdapter = new PicturesScrollAdapter(this, mUris);
+		mAdapter = new PicturesScrollAdapter(this, queryImages());
 		mView = new CardScrollView(this);
 		mView.setAdapter(mAdapter);
 
 		setContentView(mView);
 	}
 
-	public void queryGallery() {
-		String[] projection = {MediaStore.Images.Thumbnails._ID};
-		mCursor = getContentResolver().query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, projection, null, null, MediaStore.Images.Thumbnails.IMAGE_ID);
-		mColumnIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails._ID);
-		mUris = new ArrayList<Uri>(mCursor.getCount());
+	private List<String> queryImages() {
+		List<String> pathList = new ArrayList<String>();
 
-		mCursor.moveToFirst();
+		File f = new File("/DCIM/camera/");
+		File[] files = f.listFiles();
 
-		while (mCursor.moveToNext()) {
-			int imageID = mCursor.getInt(mColumnIndex);
-			mUris.add(Uri.withAppendedPath(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, "" + imageID));
+		for (int i = 0; i < files.length; i++) {
+			File file = files[i];
+			pathList.add(file.getPath());
+		}
 
-            Log.i(TAG, "Added URI");
-        }
+		return pathList;
 	}
+
 }

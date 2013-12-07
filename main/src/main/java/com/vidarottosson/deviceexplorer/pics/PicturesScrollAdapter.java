@@ -3,12 +3,12 @@ package com.vidarottosson.deviceexplorer.pics;
 //  Created by Viddi on 12/6/13.
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.net.Uri;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.vidarottosson.deviceexplorer.R;
@@ -19,17 +19,17 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
 
 	private Context mContext;
     private LayoutInflater mInflater;
-    private List<Uri> mUris;
+    private List<String> mImagePaths;
 
-	public PicturesScrollAdapter(Context context, List<Uri> uris) {
+	public PicturesScrollAdapter(Context context, List<String> imagePaths) {
 		mContext = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mUris = uris;
+        mImagePaths = imagePaths;
 	}
 
 	@Override
 	public int getCount() {
-		return mUris.size();
+		return mImagePaths.size();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.imgPicture.setImageURI(mUris.get(position));
+        holder.imgPicture.setImageBitmap(BitmapFactory.decodeFile(mImagePaths.get(position).toString()));
         holder.txtName.setText("TODO: Set Image Name");
 
         return view;
