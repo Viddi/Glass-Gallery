@@ -1,30 +1,54 @@
 package com.vidarottosson.deviceexplorer.pics;
+
 //  Created by Viddi on 12/6/13.
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.provider.MediaStore;
+import android.util.Log;
 
-import com.vidarottosson.deviceexplorer.R;
+import com.google.android.glass.widget.CardScrollView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PictureExplorerActivity extends Activity {
 
-    public static final String TAG = PictureExplorerActivity.class.getSimpleName();
+	public static final String TAG = PictureExplorerActivity.class.getSimpleName();
 
-    private ImageView mImageView;
+	private CardScrollView mView;
+	private PicturesScrollAdapter mAdapter;
+	private Cursor mCursor;
+	private int mColumnIndex;
+	private List<Uri> mUris;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pictures);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        mImageView = (ImageView) findViewById(R.id.pictures_imageView);
+		queryGallery();
+		mAdapter = new PicturesScrollAdapter(this, mUris);
+		mView = new CardScrollView(this);
+		mView.setAdapter(mAdapter);
 
-        Bitmap dummy = BitmapFactory.decodeResource(getResources(), R.drawable.dummy);
-        mImageView.setImageBitmap(dummy);
+		setContentView(mView);
+	}
 
-        // TODO: Find Pictures folder and display list
-    }
+	public void queryGallery() {
+		String[] projection = {MediaStore.Images.Thumbnails._ID};
+		mCursor = getContentResolver().query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, projection, null, null, MediaStore.Images.Thumbnails.IMAGE_ID);
+		mColumnIndex = mCursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails._ID);
+		mUris = new ArrayList<Uri>(mCursor.getCount());
+
+		mCursor.moveToFirst();
+
+		while (mCursor.moveToNext()) {
+			int imageID = mCursor.getInt(mColumnIndex);
+			mUris.add(Uri.withAppendedPath(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, "" + imageID));
+
+            Log.i(TAG, "Added URI");
+        }
+	}
 }

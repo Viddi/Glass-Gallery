@@ -4,7 +4,7 @@ package com.vidarottosson.deviceexplorer.models;
 public class FileItem {
 
     public enum Type {
-        PICTURE, VIDEO
+        PICTURE, VIDEO, MUSIC
     }
 
     private String path;
