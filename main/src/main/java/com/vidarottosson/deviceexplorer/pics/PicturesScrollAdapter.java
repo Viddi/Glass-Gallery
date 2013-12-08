@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.vidarottosson.deviceexplorer.R;
+import com.vidarottosson.deviceexplorer.models.FileItem;
 
 import java.util.List;
 
@@ -22,25 +23,21 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
     public static final String TAG = PicturesScrollAdapter.class.getSimpleName();
 
 	private Context mContext;
-    private LayoutInflater mInflater;
-    private List<String> mImagePaths;
+    private List<FileItem> mImageFiles;
 
-	public PicturesScrollAdapter(Context context, List<String> imagePaths) {
+	public PicturesScrollAdapter(Context context, List<FileItem> imageFiles) {
 		mContext = context;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mImagePaths = imagePaths;
-
-        Log.d(TAG, "At least the constructor is getting called: " + mImagePaths.size());
+        mImageFiles = imageFiles;
 	}
 
 	@Override
 	public int getCount() {
-		return mImagePaths.size();
+		return mImageFiles.size();
 	}
 
 	@Override
-	public Bitmap getItem(int i) {
-		return BitmapFactory.decodeFile(mImagePaths.get(i));
+	public FileItem getItem(int i) {
+		return mImageFiles.get(i);
 	}
 
 	@Override
@@ -61,9 +58,7 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
         }
 
 //        holder.imgPicture.setImageBitmap(BitmapFactory.decodeFile(mImagePaths.get(position)));
-        holder.txtName.setText("TODO: Set Image Name");
-
-        Log.d(TAG, "The fuck is happening");
+        holder.txtName.setText(mImageFiles.get(position).getName());
 
         return setItemOnCard(this, view);
 	}

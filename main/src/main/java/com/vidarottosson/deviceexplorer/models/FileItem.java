@@ -7,14 +7,25 @@ public class FileItem {
         PICTURE, VIDEO, MUSIC
     }
 
+    public static final String EXTENSION_PNG = ".png";
+    public static final String EXTENSION_JPG = ".jpg";
+    public static final String EXTENSION_JPEG = ".jpeg";
+    public static final String EXTENSION_BMP = ".bmp";
+
     private String path;
     private int fileType;
     private String name;
+    private String extension;
 
-    public FileItem(String path, int fileType, String name) {
+    public FileItem() {
+
+    }
+
+    public FileItem(String path, int fileType, String name, String extension) {
         this.path = path;
         this.fileType = fileType;
         this.name = name;
+        this.extension = extension;
     }
 
     public String getPath() {
@@ -39,33 +50,16 @@ public class FileItem {
 
     public void setName(String name) {
         this.name = name;
+        setExtension(name.substring(name.lastIndexOf('.')));
     }
 
-    @Override
-    public String toString() {
-        return "FileItem{" +
-                "path='" + path + '\'' +
-                ", fileType=" + fileType +
-                '}';
+    public String getExtension() {
+        return extension;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        FileItem fileItem = (FileItem) o;
-
-        if (fileType != fileItem.fileType) return false;
-        if (path != null ? !path.equals(fileItem.path) : fileItem.path != null) return false;
-
-        return true;
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
-    @Override
-    public int hashCode() {
-        int result = path != null ? path.hashCode() : 0;
-        result = 31 * result + fileType;
-        return result;
-    }
+
 }

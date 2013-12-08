@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.glass.widget.CardScrollView;
+import com.vidarottosson.deviceexplorer.models.FileItem;
+import com.vidarottosson.deviceexplorer.util.Utility;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,11 +20,6 @@ public class PictureExplorerActivity extends Activity {
 
 	private CardScrollView mView;
 	private PicturesScrollAdapter mAdapter;
-
-    public static final String EXTENSION_PNG = ".png";
-    public static final String EXTENSION_JPG = ".jpg";
-    public static final String EXTENSION_JPEG = ".jpeg";
-    public static final String EXTENSION_BMP = ".bmp";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +44,23 @@ public class PictureExplorerActivity extends Activity {
         mView.deactivate();
     }
 
-	private List<String> queryImages() {
-		List<String> pathList = new ArrayList<String>();
+	private List<FileItem> queryImages() {
+		List<FileItem> pathList = new ArrayList<FileItem>();
 
-		File f = new File("/mnt/sdcard/DCIM/Camera/");
+		File f = new File(Utility.MEDIA_FOLDER_SOURCE);
 		File[] files = f.listFiles();
 
         Log.i(TAG, "Querying images..");
 
-		for (int i = 0; i < files.length; i++) {
-			File file = files[i];
+		for (File file : files) {
 
             if(isImage(file.getName())) {
-                pathList.add(file.getAbsolutePath());
+                FileItem item = new FileItem();
+                item.setName(file.getName());
+                item.setPath(file.getAbsolutePath());
+                item.setFileType(FileItem.Type.PICTURE.ordinal());
+
+                pathList.add(item);
                 Log.i(TAG, "Added an image: " + file.getAbsolutePath());
             }
 
@@ -73,7 +74,16 @@ public class PictureExplorerActivity extends Activity {
     private boolean isImage(String filename) {
         String extension = filename.substring(filename.lastIndexOf('.'));
 
-        if(extension.equals(EXTENSION_JPG) || extension.equals(EXTENSION_PNG) || extension.equals(EXTENSION_JPEG) || extension.equals(EXTENSION_BMP)) {
+        if(extension.equals(FileItem.EXTENSION_JPG)) {
+            return true;
+        }
+        else if(extension.equals(FileItem.EXTENSION_PNG)) {
+            return true;
+        }
+        else if (extension.equals(FileItem.EXTENSION_JPEG)) {
+            return true;
+        }
+        else if(extension.equals(FileItem.EXTENSION_BMP)) {
             return true;
         }
 
