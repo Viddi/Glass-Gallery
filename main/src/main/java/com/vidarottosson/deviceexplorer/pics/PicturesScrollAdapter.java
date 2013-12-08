@@ -3,7 +3,9 @@ package com.vidarottosson.deviceexplorer.pics;
 //  Created by Viddi on 12/6/13.
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import java.util.List;
 
 public class PicturesScrollAdapter extends CardScrollAdapter {
 
+    public static final String TAG = PicturesScrollAdapter.class.getSimpleName();
+
 	private Context mContext;
     private LayoutInflater mInflater;
     private List<String> mImagePaths;
@@ -25,6 +29,8 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
 		mContext = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mImagePaths = imagePaths;
+
+        Log.d(TAG, "At least the constructor is getting called: " + mImagePaths.size());
 	}
 
 	@Override
@@ -33,8 +39,8 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
 	}
 
 	@Override
-	public Object getItem(int i) {
-		return null;
+	public Bitmap getItem(int i) {
+		return BitmapFactory.decodeFile(mImagePaths.get(i));
 	}
 
 	@Override
@@ -42,7 +48,7 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
         ViewHolder holder;
 
         if(view == null) {
-            view = mInflater.inflate(R.layout.activity_pictures, viewGroup, false);
+            view = LayoutInflater.from(mContext).inflate(R.layout.activity_pictures, viewGroup);
 
             holder = new ViewHolder();
             holder.imgPicture = (ImageView) view.findViewById(R.id.pictures_imageView);
@@ -54,10 +60,12 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        holder.imgPicture.setImageBitmap(BitmapFactory.decodeFile(mImagePaths.get(position).toString()));
+//        holder.imgPicture.setImageBitmap(BitmapFactory.decodeFile(mImagePaths.get(position)));
         holder.txtName.setText("TODO: Set Image Name");
 
-        return view;
+        Log.d(TAG, "The fuck is happening");
+
+        return setItemOnCard(this, view);
 	}
 
 	@Override
