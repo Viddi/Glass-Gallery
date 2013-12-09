@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.vidarottosson.deviceexplorer.R;
 import com.vidarottosson.deviceexplorer.models.FileItem;
+import com.vidarottosson.deviceexplorer.models.PictureItem;
 
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
     public static final String TAG = PicturesScrollAdapter.class.getSimpleName();
 
 	private Context mContext;
-    private List<FileItem> mImageFiles;
+    private List<PictureItem> mImageFiles;
 
-	public PicturesScrollAdapter(Context context, List<FileItem> imageFiles) {
+	public PicturesScrollAdapter(Context context, List<PictureItem> imageFiles) {
 		mContext = context;
         mImageFiles = imageFiles;
 	}
@@ -36,7 +37,7 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
 	}
 
 	@Override
-	public FileItem getItem(int i) {
+	public PictureItem getItem(int i) {
 		return mImageFiles.get(i);
 	}
 

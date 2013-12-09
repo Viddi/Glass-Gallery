@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.google.android.glass.widget.CardScrollView;
 import com.vidarottosson.deviceexplorer.models.FileItem;
+import com.vidarottosson.deviceexplorer.models.PictureItem;
 import com.vidarottosson.deviceexplorer.util.Utility;
 
 import java.io.File;
@@ -44,8 +45,8 @@ public class PictureExplorerActivity extends Activity {
         mView.deactivate();
     }
 
-	private List<FileItem> queryImages() {
-		List<FileItem> pathList = new ArrayList<FileItem>();
+	private List<PictureItem> queryImages() {
+		List<PictureItem> pathList = new ArrayList<PictureItem>();
 
 		File f = new File(Utility.MEDIA_FOLDER_SOURCE);
 		File[] files = f.listFiles();
@@ -55,7 +56,7 @@ public class PictureExplorerActivity extends Activity {
 		for (File file : files) {
 
             if(isImage(file.getName())) {
-                FileItem item = new FileItem();
+                PictureItem item = new PictureItem();
                 item.setName(file.getName());
                 item.setPath(file.getAbsolutePath());
                 item.setFileType(FileItem.Type.PICTURE.ordinal());
