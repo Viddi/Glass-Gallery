@@ -22,11 +22,11 @@ public class FileItem {
     public FileItem() {
     }
 
-    public FileItem(String path, int fileType, String name, String extension) {
-        this.path = path;
+    public FileItem(int fileType, String path, String name) {
         this.fileType = fileType;
+        this.path = path;
         this.name = name;
-        this.extension = extension;
+        setExtension(name);
     }
 
     public String getPath() {
@@ -51,22 +51,22 @@ public class FileItem {
 
     public void setName(String name) {
         this.name = name;
-        this.extension = (name.substring(name.lastIndexOf('.')));
+        setExtension(name);
     }
 
     public String getExtension() {
         return extension;
     }
 
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setExtension(String fileName) {
+        this.extension = (fileName.substring(fileName.lastIndexOf('.')));
     }
 
     public boolean deleteItem() {
         File file = new File(path);
 
         if(file.delete()) {
-            // TODO: Create a callback to destroy items that are in main memory
+            // TODO: Create a callback to release items that are in main memory
             return true;
         }
 

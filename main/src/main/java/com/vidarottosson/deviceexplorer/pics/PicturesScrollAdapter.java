@@ -24,21 +24,21 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
     public static final String TAG = PicturesScrollAdapter.class.getSimpleName();
 
 	private Context mContext;
-    private List<PictureItem> mImageFiles;
+    private List<PictureItem> mPictureItems;
 
-	public PicturesScrollAdapter(Context context, List<PictureItem> imageFiles) {
+	public PicturesScrollAdapter(Context context, List<PictureItem> pictureItems) {
 		mContext = context;
-        mImageFiles = imageFiles;
+        mPictureItems = pictureItems;
 	}
 
 	@Override
 	public int getCount() {
-		return mImageFiles.size();
+		return mPictureItems.size();
 	}
 
 	@Override
 	public PictureItem getItem(int i) {
-		return mImageFiles.get(i);
+		return mPictureItems.get(i);
 	}
 
 	@Override
@@ -58,8 +58,8 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-//        holder.imgPicture.setImageBitmap(BitmapFactory.decodeFile(mImagePaths.get(position)));
-        holder.txtName.setText(mImageFiles.get(position).getName());
+        holder.imgPicture.setImageBitmap(mPictureItems.get(position).getBitmap());
+        holder.txtName.setText(mPictureItems.get(position).getName());
 
         return setItemOnCard(this, view);
 	}

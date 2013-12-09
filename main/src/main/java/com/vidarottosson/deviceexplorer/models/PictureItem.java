@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -12,7 +13,10 @@ public class PictureItem extends FileItem {
 
     private Bitmap bitmap;
 
-    public PictureItem(Context context) {
+    public PictureItem(String path, String name, Context context) {
+        super(Type.PICTURE.ordinal(), path, name);
+
+        // TODO: Only load an image if will be displayed
         createBitmap(context);
     }
 
@@ -27,7 +31,11 @@ public class PictureItem extends FileItem {
 
         Bitmap tempBitmap = BitmapFactory.decodeFile(getPath());
 
+        // Screen dimensions are 640x360
+
         bitmap = Bitmap.createScaledBitmap(tempBitmap, width, height, false);
+
+        tempBitmap.recycle();
     }
 
     public void destroyBitmap() {
