@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -11,7 +11,8 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:scaleType="fitCenter"
-               android:src="@drawable/dummy"/>
+               android:src="@drawable/dummy"
+               android:layout_centerHorizontal="true"/>
 
     <TextView
             android:id="@+id/pictures_textView"
@@ -20,6 +21,7 @@
             android:gravity="center"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@android:color/white"
+            android:layout_alignBottom="@+id/pictures_imageView"
             android:text="Dummy Picture"/>
 
     <ProgressBar
@@ -30,4 +32,4 @@
             android:layout_gravity="center"
             android:visibility="gone"/>
 
-</LinearLayout>
+</RelativeLayout>
