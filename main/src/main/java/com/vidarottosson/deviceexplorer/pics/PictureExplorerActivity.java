@@ -56,7 +56,7 @@ public class PictureExplorerActivity extends Activity {
 		for (File file : files) {
 
             if(isImage(file.getName())) {
-                PictureItem item = new PictureItem(file.getAbsolutePath(), file.getName(), this);
+                PictureItem item = new PictureItem(file.getAbsolutePath(), file.getName());
                 item.setFileType(FileItem.Type.PICTURE.ordinal());
 
                 pathList.add(item);

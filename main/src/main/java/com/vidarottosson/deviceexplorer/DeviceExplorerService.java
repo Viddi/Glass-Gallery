@@ -34,19 +34,18 @@ public class DeviceExplorerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(mLiveCard == null) {
             Log.d(TAG, "Publishing LiveCard");
-            mLiveCard = mTimelineManager.getLiveCard(LIVE_CARD_ID);
+            mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_ID);
 
             RemoteViews views = new RemoteViews(getPackageName(), R.layout.activity_main);
             mLiveCard.setViews(views);
 
 //            mLiveCard.enableDirectRendering(true);
-            mLiveCard.setNonSilent(true);
 
             Intent menuIntent = new Intent(this, MenuActivity.class);
             menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
 
-            mLiveCard.publish();
+            mLiveCard.publish(LiveCard.PublishMode.REVEAL);
         }
 
         return START_STICKY;
