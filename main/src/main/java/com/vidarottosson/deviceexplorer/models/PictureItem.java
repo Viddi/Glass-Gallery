@@ -5,7 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.util.Log;
+import android.os.AsyncTask;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -47,9 +47,38 @@ public class PictureItem extends FileItem {
         return bitmap;
     }
 
+    public boolean isLoaded() {
+        if(bitmap != null) {
+            return true;
+        }
+
+        return false;
+    }
+
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
+
+    private class AsyncBitmapLoader extends AsyncTask<String, String, Bitmap> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+        }
+
+    }
+
+    // TODO: Create callback listeners for images
 
 
 }
