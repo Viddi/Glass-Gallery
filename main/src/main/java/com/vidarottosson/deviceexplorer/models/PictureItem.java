@@ -5,20 +5,20 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
 public class PictureItem extends FileItem {
+    public static final String TAG = PictureItem.class.getSimpleName();
 
     private Bitmap bitmap;
 
     public PictureItem(String path, String name) {
         super(Type.PICTURE.ordinal(), path, name);
-
-        // TODO: Only load an image if will be displayed
     }
 
-    public static Bitmap createBitmap(Context context, String path) {
+    public void createBitmap(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
@@ -27,18 +27,20 @@ public class PictureItem extends FileItem {
         int width = size.x;
         int height = size.y;
 
-        Bitmap tempBitmap = BitmapFactory.decodeFile(path);
+        Bitmap tempBitmap = BitmapFactory.decodeFile(getPath());
 
         // Screen dimensions are 640x360
 
-        return Bitmap.createScaledBitmap(tempBitmap, width, height, false);
+        bitmap = Bitmap.createScaledBitmap(tempBitmap, width, height, false);
+        tempBitmap.recycle();
 
-//        tempBitmap.recycle();
+        Log.i(TAG, "Created Bitmap");
     }
 
     public void destroyBitmap() {
         bitmap.recycle();
         bitmap = null;
+        Log.i(TAG, "Recycled Bitmap");
     }
 
     public Bitmap getBitmap() {
@@ -56,9 +58,5 @@ public class PictureItem extends FileItem {
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
-
-
-    // TODO: Create callback listeners for images
-
 
 }

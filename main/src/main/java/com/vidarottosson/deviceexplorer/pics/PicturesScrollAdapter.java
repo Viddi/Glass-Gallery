@@ -5,6 +5,7 @@ package com.vidarottosson.deviceexplorer.pics;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.google.android.glass.widget.CardScrollAdapter;
 import com.vidarottosson.deviceexplorer.R;
 import com.vidarottosson.deviceexplorer.models.PictureItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PicturesScrollAdapter extends CardScrollAdapter {
@@ -24,10 +26,14 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
 
 	private Context mContext;
     private List<PictureItem> mPictureItems;
+    private List<Integer> mCachedPositions;
+
+    public static final int MAX_PICTURES_CACHE = 10;
 
 	public PicturesScrollAdapter(Context context, List<PictureItem> pictureItems) {
 		mContext = context;
         mPictureItems = pictureItems;
+        mCachedPositions = new ArrayList<Integer>(MAX_PICTURES_CACHE);
 	}
 
 	@Override
@@ -59,6 +65,8 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        recycleBitmaps(position);
+
         if(picture.isLoaded()) {
             holder.imgPicture.setImageBitmap(picture.getBitmap());
             holder.txtName.setText(picture.getName());
@@ -87,7 +95,18 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
         ProgressBar progressBar;
     }
 
-    private class AsyncBitmapLoader extends AsyncTask<String, String, Bitmap> {
+    private void recycleBitmaps(int position) {
+        if(!mCachedPositions.contains(position)) {
+            mCachedPositions.add(position);
+
+            if(mCachedPositions.size() > MAX_PICTURES_CACHE) {
+                mPictureItems.get(mCachedPositions.get(0)).destroyBitmap();
+                mCachedPositions.remove(0);
+            }
+        }
+    }
+
+    private class AsyncBitmapLoader extends AsyncTask<String, String, Void> {
 
         private ProgressBar mProgressBar;
         private ImageView mImageView;
@@ -110,14 +129,15 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
         }
 
         @Override
-        protected Bitmap doInBackground(String... strings) {
-            return PictureItem.createBitmap(mContext, mPicture.getPath());
+        protected Void doInBackground(String... strings) {
+            mPicture.createBitmap(mContext);
+
+            return null;
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
+        protected void onPostExecute(Void bitmap) {
             super.onPostExecute(bitmap);
-            mPicture.setBitmap(bitmap);
 
             mProgressBar.setVisibility(View.GONE);
             mImageView.setVisibility(View.VISIBLE);
