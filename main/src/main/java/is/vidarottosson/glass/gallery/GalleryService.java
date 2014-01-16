@@ -11,9 +11,9 @@ import android.widget.RemoteViews;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.TimelineManager;
 
-public class DeviceExplorerService extends Service {
+public class GalleryService extends Service {
 
-    public static final String TAG  = DeviceExplorerService.class.getSimpleName();
+    public static final String TAG  = GalleryService.class.getSimpleName();
     public static final String LIVE_CARD_ID = "DeviceExplorer";
 
     private TimelineManager mTimelineManager;

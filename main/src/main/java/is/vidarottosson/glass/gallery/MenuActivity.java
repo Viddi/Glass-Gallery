@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import is.vidarottosson.glass.gallery.pics.PictureExplorerActivity;
+import is.vidarottosson.glass.gallery.pics.PictureActivity;
 
 public class MenuActivity extends Activity {
     public static final String TAG = MenuActivity.class.getSimpleName();
@@ -39,7 +39,7 @@ public class MenuActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.pictures:
-                Intent picIntent = new Intent(this, PictureExplorerActivity.class);
+                Intent picIntent = new Intent(this, PictureActivity.class);
                 startActivityForResult(picIntent, INTENT_PICTURES);
                 return true;
             case R.id.videos:

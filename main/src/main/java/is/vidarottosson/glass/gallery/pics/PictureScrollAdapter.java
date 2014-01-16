@@ -19,9 +19,9 @@ import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.AsyncBitmapLoader;
 
-public class PicturesScrollAdapter extends CardScrollAdapter {
+public class PictureScrollAdapter extends CardScrollAdapter {
 
-    public static final String TAG = PicturesScrollAdapter.class.getSimpleName();
+    public static final String TAG = PictureScrollAdapter.class.getSimpleName();
 
 	private Context mContext;
     private List<PictureItem> mPictureItems;
@@ -29,7 +29,7 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
 
     public static final int MAX_PICTURES_CACHE = 10;
 
-	public PicturesScrollAdapter(Context context, List<PictureItem> pictureItems) {
+	public PictureScrollAdapter(Context context, List<PictureItem> pictureItems) {
 		mContext = context;
         mPictureItems = pictureItems;
         mCachedPositions = new ArrayList<Integer>(MAX_PICTURES_CACHE);

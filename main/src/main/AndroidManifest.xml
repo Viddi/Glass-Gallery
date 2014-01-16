@@ -22,13 +22,13 @@
         </activity>
 
         <activity
-                android:name="is.vidarottosson.glass.gallery.pics.PictureExplorerActivity"
+                android:name=".pics.PictureActivity"
                 android:label="@string/app_name"
                 android:enabled="true" >
         </activity>
 
         <service
-                android:name="is.vidarottosson.glass.gallery.DeviceExplorerService"
+                android:name=".GalleryService"
                 android:label="@string/app_name"
                 android:icon="@drawable/ic_mobile_phone"
                 android:enabled="true" >

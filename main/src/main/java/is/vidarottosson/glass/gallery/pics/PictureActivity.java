@@ -10,24 +10,26 @@ import com.google.android.glass.widget.CardScrollView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.Utility;
 
-public class PictureExplorerActivity extends Activity {
+public class PictureActivity extends Activity {
 
-	public static final String TAG = PictureExplorerActivity.class.getSimpleName();
+	public static final String TAG = PictureActivity.class.getSimpleName();
 
 	private CardScrollView mView;
-	private PicturesScrollAdapter mAdapter;
+	private PictureScrollAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mAdapter = new PicturesScrollAdapter(this, queryImages());
+		mAdapter = new PictureScrollAdapter(this, queryImages());
 		mView = new CardScrollView(this);
 		mView.setAdapter(mAdapter);
 
@@ -54,7 +56,21 @@ public class PictureExplorerActivity extends Activity {
 
         Log.i(TAG, "Querying images..");
 
-		for (File file : files) {
+        /* Sorting the files */
+        Arrays.sort(files, new Comparator() {
+            public int compare(Object o1, Object o2) {
+
+                if (((File) o1).lastModified() > ((File) o2).lastModified()) {
+                    return -1;
+                } else if (((File) o1).lastModified() < ((File) o2).lastModified()) {
+                    return +1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        for (File file : files) {
 
             if(isImage(file.getName())) {
                 PictureItem item = new PictureItem(file.getAbsolutePath(), file.getName());
