@@ -9,17 +9,10 @@ public class Utility {
     public static boolean isImage(String filename) {
         String extension = getExtension(filename);
 
-        if(extension.equals(FileItem.EXTENSION_JPG)) {
-            return true;
-        }
-        else if(extension.equals(FileItem.EXTENSION_PNG)) {
-            return true;
-        }
-        else if (extension.equals(FileItem.EXTENSION_JPEG)) {
-            return true;
-        }
-        else if(extension.equals(FileItem.EXTENSION_BMP)) {
-            return true;
+        for(String str : FileItem.EXTENTIONS_PICTURE) {
+            if(extension.equals(str)) {
+                return true;
+            }
         }
 
         return false;

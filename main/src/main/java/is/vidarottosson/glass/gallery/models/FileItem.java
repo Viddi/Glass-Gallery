@@ -2,6 +2,8 @@ package is.vidarottosson.glass.gallery.models;
 //  Created by Viddi on 12/6/13.
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public class FileItem {
 
@@ -13,6 +15,8 @@ public class FileItem {
     public static final String EXTENSION_JPG = ".jpg";
     public static final String EXTENSION_JPEG = ".jpeg";
     public static final String EXTENSION_BMP = ".bmp";
+
+    public static final List<String> EXTENTIONS_PICTURE = Arrays.asList(EXTENSION_PNG, EXTENSION_JPG, EXTENSION_JPEG, EXTENSION_BMP);
 
     private String path;
     private int fileType;
