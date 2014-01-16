@@ -36,17 +36,17 @@ public class PictureActivity extends Activity {
 		setContentView(mView);
 	}
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mView.activate();
-    }
+	@Override
+	public void onResume() {
+		super.onResume();
+		mView.activate();
+	}
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mView.deactivate();
-    }
+	@Override
+	public void onPause() {
+		super.onPause();
+		mView.deactivate();
+	}
 
 	private List<PictureItem> queryImages() {
 		List<PictureItem> pathList = new ArrayList<PictureItem>();
@@ -54,56 +54,36 @@ public class PictureActivity extends Activity {
 		File f = new File(Utility.MEDIA_FOLDER_SOURCE);
 		File[] files = f.listFiles();
 
-        Log.i(TAG, "Querying images..");
+		Log.i(TAG, "Querying images..");
 
-        /* Sorting the files */
-        Arrays.sort(files, new Comparator() {
-            public int compare(Object o1, Object o2) {
+		/* Sorting the files */
+		Arrays.sort(files, new Comparator() {
+			public int compare(Object o1, Object o2) {
 
-                if (((File) o1).lastModified() > ((File) o2).lastModified()) {
-                    return -1;
-                } else if (((File) o1).lastModified() < ((File) o2).lastModified()) {
-                    return +1;
-                } else {
-                    return 0;
-                }
-            }
-        });
+				if (((File) o1).lastModified() > ((File) o2).lastModified()) {
+					return -1;
+				} else if (((File) o1).lastModified() < ((File) o2).lastModified()) {
+					return +1;
+				} else {
+					return 0;
+				}
+			}
+		});
 
-        for (File file : files) {
+		for (File file : files) {
 
-            if(isImage(file.getName())) {
-                PictureItem item = new PictureItem(file.getAbsolutePath(), file.getName());
-                item.setFileType(FileItem.Type.PICTURE.ordinal());
+			if (Utility.isImage(file.getName())) {
+				PictureItem item = new PictureItem(file.getAbsolutePath(), file.getName());
+				item.setFileType(FileItem.Type.PICTURE.ordinal());
 
-                pathList.add(item);
-                Log.i(TAG, "Added an image: " + file.getAbsolutePath());
-            }
+				pathList.add(item);
+				Log.i(TAG, "Added an image: " + file.getAbsolutePath());
+			}
 
 		}
 
-        Log.i(TAG, "Done querying images..");
+		Log.i(TAG, "Done querying images..");
 
 		return pathList;
 	}
-
-    private boolean isImage(String filename) {
-        String extension = filename.substring(filename.lastIndexOf('.'));
-
-        if(extension.equals(FileItem.EXTENSION_JPG)) {
-            return true;
-        }
-        else if(extension.equals(FileItem.EXTENSION_PNG)) {
-            return true;
-        }
-        else if (extension.equals(FileItem.EXTENSION_JPEG)) {
-            return true;
-        }
-        else if(extension.equals(FileItem.EXTENSION_BMP)) {
-            return true;
-        }
-
-        return false;
-    }
-
 }

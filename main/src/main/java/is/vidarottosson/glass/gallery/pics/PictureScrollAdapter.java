@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -78,13 +79,19 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 	}
 
 	@Override
-	public int findIdPosition(Object o) {
-		return 0;
+	public int findIdPosition(Object id) {
+        if (id instanceof Integer) {
+            int idInt = (Integer) id;
+            if (idInt >= 0 && idInt < mPictureItems.size()) {
+                return idInt;
+            }
+        }
+        return AdapterView.INVALID_POSITION;
 	}
 
 	@Override
-	public int findItemPosition(Object o) {
-		return 0;
+	public int findItemPosition(Object item) {
+        return findIdPosition(item);
 	}
 
     static class ViewHolder {
