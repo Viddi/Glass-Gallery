@@ -1,4 +1,4 @@
-package com.vidarottosson.deviceexplorer.models;
+package is.vidarottosson.glass.gallery.models;
 //  Created by Viddi on 12/8/13.
 
 import android.content.Context;

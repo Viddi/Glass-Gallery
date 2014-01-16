@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Device Explorer</string>
-    <string name="explorer_pictures">Pictures</string>
-    <string name="explorer_videos">Videos</string>
-    <string name="show_device_explorer">Device Explorer</string>
+    <string name="app_name">Gallery</string>
+    <string name="gallery_pictures">Pictures</string>
+    <string name="gallery_videos">Videos</string>
+    <string name="show_gallery">Gallery</string>
     <string name="error_picture">Failed to load image</string>
 </resources>

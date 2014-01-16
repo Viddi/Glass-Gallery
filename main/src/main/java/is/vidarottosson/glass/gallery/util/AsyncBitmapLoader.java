@@ -1,4 +1,4 @@
-package com.vidarottosson.deviceexplorer.util;
+package is.vidarottosson.glass.gallery.util;
 //  Created by Viddi on 1/16/14.
 
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.vidarottosson.deviceexplorer.R;
-import com.vidarottosson.deviceexplorer.models.PictureItem;
+import is.vidarottosson.glass.gallery.R;
+import is.vidarottosson.glass.gallery.models.PictureItem;
 
 public class AsyncBitmapLoader extends AsyncTask<String, String, Void> {
 

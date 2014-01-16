@@ -1,4 +1,4 @@
-package com.vidarottosson.deviceexplorer.util;
+package is.vidarottosson.glass.gallery.util;
 //  Created by Viddi on 12/8/13.
 
 public class Utility {

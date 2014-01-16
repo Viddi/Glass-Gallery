@@ -1,4 +1,4 @@
-package com.vidarottosson.deviceexplorer;
+package is.vidarottosson.glass.gallery;
 //  Created by Viddi on 12/5/13.
 
 import android.app.Activity;
@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.vidarottosson.deviceexplorer.pics.PictureExplorerActivity;
+import is.vidarottosson.glass.gallery.pics.PictureExplorerActivity;
 
 public class MenuActivity extends Activity {
     public static final String TAG = MenuActivity.class.getSimpleName();

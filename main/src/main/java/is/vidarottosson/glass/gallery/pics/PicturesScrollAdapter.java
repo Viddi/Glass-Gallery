@@ -1,11 +1,8 @@
-package com.vidarottosson.deviceexplorer.pics;
+package is.vidarottosson.glass.gallery.pics;
 
 //  Created by Viddi on 12/6/13.
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +11,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
-import com.vidarottosson.deviceexplorer.R;
-import com.vidarottosson.deviceexplorer.models.PictureItem;
-import com.vidarottosson.deviceexplorer.util.AsyncBitmapLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import is.vidarottosson.glass.gallery.R;
+import is.vidarottosson.glass.gallery.models.PictureItem;
+import is.vidarottosson.glass.gallery.util.AsyncBitmapLoader;
 
 public class PicturesScrollAdapter extends CardScrollAdapter {
 

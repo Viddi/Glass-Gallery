@@ -3,11 +3,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/pictures"
-            android:title="@string/explorer_pictures"
+            android:title="@string/gallery_pictures"
             android:icon="@drawable/ic_photo" />
 
     <item
             android:id="@+id/videos"
-            android:title="@string/explorer_videos"
+            android:title="@string/gallery_videos"
             android:icon="@drawable/ic_video" />
 </menu>

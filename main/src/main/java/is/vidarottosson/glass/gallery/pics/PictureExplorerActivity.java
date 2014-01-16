@@ -1,4 +1,4 @@
-package com.vidarottosson.deviceexplorer.pics;
+package is.vidarottosson.glass.gallery.pics;
 
 //  Created by Viddi on 12/6/13.
 
@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.glass.widget.CardScrollView;
-import com.vidarottosson.deviceexplorer.models.FileItem;
-import com.vidarottosson.deviceexplorer.models.PictureItem;
-import com.vidarottosson.deviceexplorer.util.Utility;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import is.vidarottosson.glass.gallery.models.FileItem;
+import is.vidarottosson.glass.gallery.models.PictureItem;
+import is.vidarottosson.glass.gallery.util.Utility;
 
 public class PictureExplorerActivity extends Activity {
 

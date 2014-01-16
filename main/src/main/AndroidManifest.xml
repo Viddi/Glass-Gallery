@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vidarottosson.deviceexplorer"
+    package="is.vidarottosson.glass.gallery"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -17,18 +17,18 @@
                 android:required="true" />
 
         <activity
-                android:name=".MenuActivity"
+                android:name="is.vidarottosson.glass.gallery.MenuActivity"
                 android:theme="@style/MenuTheme">
         </activity>
 
         <activity
-                android:name="com.vidarottosson.deviceexplorer.pics.PictureExplorerActivity"
+                android:name="is.vidarottosson.glass.gallery.pics.PictureExplorerActivity"
                 android:label="@string/app_name"
                 android:enabled="true" >
         </activity>
 
         <service
-                android:name="com.vidarottosson.deviceexplorer.DeviceExplorerService"
+                android:name="is.vidarottosson.glass.gallery.DeviceExplorerService"
                 android:label="@string/app_name"
                 android:icon="@drawable/ic_mobile_phone"
                 android:enabled="true" >
@@ -37,7 +37,7 @@
             </intent-filter>
             <meta-data
                     android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/explorer_show" />
+                    android:resource="@xml/gallery_show" />
         </service>
 
     </application>

@@ -1,4 +1,4 @@
-package com.vidarottosson.deviceexplorer;
+package is.vidarottosson.glass.gallery;
 //  Created by Viddi on 12/5/13.
 
 import android.app.PendingIntent;
