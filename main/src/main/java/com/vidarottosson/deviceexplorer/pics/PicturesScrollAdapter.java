@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.vidarottosson.deviceexplorer.R;
 import com.vidarottosson.deviceexplorer.models.PictureItem;
+import com.vidarottosson.deviceexplorer.util.AsyncBitmapLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +73,8 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
             holder.txtName.setText(picture.getName());
         }
         else {
-            new AsyncBitmapLoader(holder.progressBar, holder.imgPicture, holder.txtName, picture).execute();
+            new AsyncBitmapLoader(mContext, holder.progressBar, holder.imgPicture, holder.txtName, picture).execute();
         }
-
 
         return setItemOnCard(this, view);
 	}
@@ -104,55 +104,5 @@ public class PicturesScrollAdapter extends CardScrollAdapter {
                 mCachedPositions.remove(0);
             }
         }
-    }
-
-    private class AsyncBitmapLoader extends AsyncTask<String, String, Void> {
-
-        private ProgressBar mProgressBar;
-        private ImageView mImageView;
-        private TextView mTextView;
-        private PictureItem mPicture;
-
-        public AsyncBitmapLoader(ProgressBar progressBar, ImageView imageView, TextView textView, PictureItem picture) {
-            mProgressBar = progressBar;
-            mImageView = imageView;
-            mTextView = textView;
-            mPicture = picture;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressBar.setVisibility(View.VISIBLE);
-            mImageView.setVisibility(View.GONE);
-            mTextView.setVisibility(View.GONE);
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            mPicture.createBitmap(mContext);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void bitmap) {
-            super.onPostExecute(bitmap);
-
-            mProgressBar.setVisibility(View.GONE);
-            mImageView.setVisibility(View.VISIBLE);
-            mTextView.setVisibility(View.VISIBLE);
-
-            if(mPicture.isLoaded()) {
-                mImageView.setImageBitmap(mPicture.getBitmap());
-                mTextView.setText(mPicture.getName());
-            }
-            else {
-                mImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_question));
-                mTextView.setText(R.string.error_picture);
-            }
-
-        }
-
     }
 }
