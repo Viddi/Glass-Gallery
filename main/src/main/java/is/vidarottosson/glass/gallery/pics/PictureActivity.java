@@ -74,7 +74,7 @@ public class PictureActivity extends Activity {
 
 			if (Utility.isImage(file.getName())) {
 				PictureItem item = new PictureItem(file.getAbsolutePath(), file.getName());
-				item.setFileType(FileItem.Type.PICTURE.ordinal());
+				item.setFileType(FileItem.Type.PICTURE);
 
 				pathList.add(item);
 				Log.i(TAG, "Added an image: " + file.getAbsolutePath());

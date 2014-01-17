@@ -9,5 +9,6 @@ import com.google.android.glass.widget.CardScrollView;
 public class VideoActivity extends Activity {
     public static final String TAG = VideoActivity.class.getSimpleName();
 
-    
+    private CardScrollView mView;
+
 }
