@@ -1,20 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="is.vidarottosson.glass.gallery"
-    android:versionCode="1"
-    android:versionName="1.0">
-
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15" />
+          package="is.vidarottosson.glass.gallery"
+          android:versionCode="1"
+          android:versionName="1.0">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <application android:allowBackup="true"
-        android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher">
+    <application
+            android:allowBackup="true"
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_launcher">
 
         <uses-library
                 android:name="com.google.android.glass"
-                android:required="true" />
+                android:required="true"/>
 
         <activity
                 android:name="is.vidarottosson.glass.gallery.MenuActivity"
@@ -24,20 +23,26 @@
         <activity
                 android:name=".pics.PictureActivity"
                 android:label="@string/app_name"
-                android:enabled="true" >
+                android:enabled="true">
+        </activity>
+
+        <activity
+                android:name=".video.VideoActivity"
+                android:label="@string/app_name"
+                android:enabled="true">
         </activity>
 
         <service
                 android:name=".GalleryService"
                 android:label="@string/app_name"
                 android:icon="@drawable/ic_mobile_phone"
-                android:enabled="true" >
+                android:enabled="true">
             <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"/>
             </intent-filter>
             <meta-data
                     android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/gallery_show" />
+                    android:resource="@xml/gallery_show"/>
         </service>
 
     </application>

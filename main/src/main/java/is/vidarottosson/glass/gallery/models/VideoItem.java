@@ -21,6 +21,7 @@ public class VideoItem extends FileItem {
 
 	public VideoItem(String path, String name) {
 		super(Type.VIDEO, path, name);
-
 	}
+
+
 }
