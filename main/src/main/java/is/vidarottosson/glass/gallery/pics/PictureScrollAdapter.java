@@ -3,6 +3,7 @@ package is.vidarottosson.glass.gallery.pics;
 //  Created by Viddi on 12/6/13.
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 	private Context mContext;
     private List<PictureItem> mPictureItems;
     private List<Integer> mCachedPositions;
+    private List<AsyncBitmapLoader> mBitmapLoaders;
 
     public static final int MAX_PICTURES_CACHE = 10;
 
@@ -34,6 +36,7 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 		mContext = context;
         mPictureItems = pictureItems;
         mCachedPositions = new ArrayList<Integer>(MAX_PICTURES_CACHE);
+        mBitmapLoaders = new ArrayList<AsyncBitmapLoader>(MAX_PICTURES_CACHE);
 	}
 
 	@Override
@@ -52,7 +55,7 @@ public class PictureScrollAdapter extends CardScrollAdapter {
         PictureItem picture = mPictureItems.get(position);
 
         if(view == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.activity_pictures, viewGroup);
+            view = LayoutInflater.from(mContext).inflate(R.layout.activity_pictures, viewGroup, false);
 
             holder = new ViewHolder();
             holder.imgPicture = (ImageView) view.findViewById(R.id.pictures_imageView);
@@ -72,7 +75,10 @@ public class PictureScrollAdapter extends CardScrollAdapter {
             holder.txtName.setText(picture.getName());
         }
         else {
-            new AsyncBitmapLoader(mContext, holder.progressBar, holder.imgPicture, holder.txtName, picture).execute();
+            AsyncBitmapLoader loader = new AsyncBitmapLoader(mContext, holder.progressBar, holder.imgPicture, holder.txtName, picture);
+            loader.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+
+            mBitmapLoaders.add(loader);
         }
 
         return setItemOnCard(this, view);
@@ -105,6 +111,10 @@ public class PictureScrollAdapter extends CardScrollAdapter {
             mCachedPositions.add(position);
 
             if(mCachedPositions.size() > MAX_PICTURES_CACHE) {
+                AsyncBitmapLoader loader = mBitmapLoaders.get(0);
+                loader.cancel(true);
+                mBitmapLoaders.remove(0);
+
                 mPictureItems.get(mCachedPositions.get(0)).destroyBitmap();
                 mCachedPositions.remove(0);
             }

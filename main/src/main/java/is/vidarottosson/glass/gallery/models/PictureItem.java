@@ -2,12 +2,15 @@ package is.vidarottosson.glass.gallery.models;
 //  Created by Viddi on 12/8/13.
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+
+import is.vidarottosson.glass.gallery.R;
 
 public class PictureItem extends FileItem {
     public static final String TAG = PictureItem.class.getSimpleName();
@@ -38,12 +41,17 @@ public class PictureItem extends FileItem {
     }
 
     public void destroyBitmap() {
-        bitmap.recycle();
-        bitmap = null;
-        Log.i(TAG, "Recycled Bitmap");
+        if (isLoaded()) {
+            bitmap.recycle();
+            bitmap = null;
+            Log.i(TAG, "Recycled Bitmap");
+        }
     }
 
     public Bitmap getBitmap() {
+        if(bitmap.isRecycled()) {
+            return BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_question);
+        }
         return bitmap;
     }
 
