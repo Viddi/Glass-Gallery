@@ -3,14 +3,20 @@ package is.vidarottosson.glass.gallery.video;
 //  Created by jonstaff on 1/17/14.
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 
 public class VideoScrollAdapter extends CardScrollAdapter {
@@ -31,7 +37,7 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 	public VideoScrollAdapter(Context context, List<VideoItem> videos) {
 		mContext = context;
 		mVideos = videos;
-        mCachedPositions = new ArrayList<Integer>(MAX_VIDEOS_CACHE);
+		mCachedPositions = new ArrayList<Integer>(MAX_VIDEOS_CACHE);
 	}
 
 	//     ___       _             __                  ___                 _                           _        _   _
@@ -43,16 +49,34 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 
 	@Override
 	public int getCount() {
-		return 0;
+		return mVideos.size();
 	}
 
 	@Override
-	public Object getItem(int i) {
-		return null;
+	public Object getItem(int index) {
+		return mVideos.get(index);
 	}
 
 	@Override
-	public View getView(int i, View view, ViewGroup viewGroup) {
+	public View getView(int position, View view, ViewGroup parent) {
+		ViewHolder holder;
+		VideoItem video = mVideos.get(position);
+
+		if (view == null) {
+			view = LayoutInflater.from(mContext).inflate(R.layout.activity_video, parent);
+
+			holder = new ViewHolder();
+			holder.videoView = (VideoView) view.findViewById(R.id.video_videoView);
+			holder.txtName = (TextView) view.findViewById(R.id.video_textView);
+			holder.progressBar = (ProgressBar) view.findViewById(R.id.video_progressBar);
+
+			view.setTag(holder);
+		} else {
+            holder = (ViewHolder) view.getTag();
+        }
+
+
+
 		return null;
 	}
 
@@ -64,5 +88,17 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 	@Override
 	public int findItemPosition(Object o) {
 		return 0;
+	}
+
+	//    __     ___               _   _       _     _
+	//    \ \   / (_) _____      _| | | | ___ | | __| | ___ _ __
+	//     \ \ / /| |/ _ \ \ /\ / / |_| |/ _ \| |/ _` |/ _ \ '__|
+	//      \ V / | |  __/\ V  V /|  _  | (_) | | (_| |  __/ |
+	//       \_/  |_|\___| \_/\_/ |_| |_|\___/|_|\__,_|\___|_|
+
+	static class ViewHolder {
+		VideoView videoView;
+		TextView txtName;
+		ProgressBar progressBar;
 	}
 }
