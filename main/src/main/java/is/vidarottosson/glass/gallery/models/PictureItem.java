@@ -15,7 +15,7 @@ public class PictureItem extends FileItem {
     private Bitmap bitmap;
 
     public PictureItem(String path, String name) {
-        super(Type.PICTURE.ordinal(), path, name);
+        super(Type.PICTURE, path, name);
     }
 
     public void createBitmap(Context context) {
