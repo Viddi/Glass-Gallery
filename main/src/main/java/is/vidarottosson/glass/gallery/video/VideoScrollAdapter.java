@@ -3,10 +3,13 @@ package is.vidarottosson.glass.gallery.video;
 //  Created by jonstaff on 1/17/14.
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -59,8 +62,7 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
-		ViewHolder holder;
-		VideoItem video = mVideos.get(position);
+		final ViewHolder holder;
 
 		if (view == null) {
 			view = LayoutInflater.from(mContext).inflate(R.layout.activity_video, parent);
@@ -72,22 +74,38 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 
 			view.setTag(holder);
 		} else {
-            holder = (ViewHolder) view.getTag();
-        }
+			holder = (ViewHolder) view.getTag();
+		}
 
+        holder.videoView.setVideoPath(mVideos.get(position).getPath());
 
+        MediaController controller = new MediaController(mContext);
+        controller.setAnchorView(holder.videoView);
+        holder.videoView.setMediaController(controller);
+        holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                holder.videoView.start();
+            }
+        });
 
-		return null;
+		return setItemOnCard(this, view);
 	}
 
 	@Override
 	public int findIdPosition(Object o) {
-		return 0;
+		if (o instanceof Integer) {
+			int x = (Integer) o;
+			if (x >= 0 && x < mVideos.size()) {
+				return x;
+			}
+		}
+		return AdapterView.INVALID_POSITION;
 	}
 
 	@Override
 	public int findItemPosition(Object o) {
-		return 0;
+		return findIdPosition(o);
 	}
 
 	//    __     ___               _   _       _     _
