@@ -1,12 +1,18 @@
 Glass-Gallery
 =============
 
-This project is exactly what the name is. As an Android developer, I simply wanted to explore the features, and see how Glass apps are made with the gdk. There was no way for me to view pictures/videos on the device, that I had taken with Glass, without having to find it somewhere on my Timeline. This can be very frustrating at times, since most people have a rather large Timeline
+## Overview
 
-I wanted to recreate the Android Gallery app, and most of its functions, for Glass. The app acts as a live card on Glass where the user can either select Pictures or Videos that are on Glass itself. The media is ordered from newest to oldest.
+As the name implies, this project is a Gallery for Google Glass.  There is currently no way to view pictures/videos on the device that you've taken with Glass, without searching through your large Timeline.  We hope to provide a better alternative.
 
-This project is the result of what I did over a few days learning the gdk. I'm not actively working on the project anymore. Here are some of the features I initially intended to include in this app, that are not done:
+We're working on recreating the standard Android Gallery app (along with most of its functionality) for Glass.  The app acts as a live card where you can select either 'Pictures' or 'Videos' stored on the device, and the media is ordered from newest to oldest.
 
-- View Videos
+## Current Features
+
+- View Pictures
+- View Videos (partially working/in progress)
+ 
+## Future Features
+
 - Media information for both Pictures and Videos.
 - Option to share any media file
