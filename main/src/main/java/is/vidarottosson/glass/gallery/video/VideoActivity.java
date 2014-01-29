@@ -3,8 +3,10 @@ package is.vidarottosson.glass.gallery.video;
 //  Created by jonstaff on 1/17/14.
 
 import android.app.Activity;
+import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.TextureView;
 
 import com.google.android.glass.widget.CardScrollView;
 
