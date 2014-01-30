@@ -48,7 +48,7 @@ public class PictureActivity extends Activity {
 		mView.deactivate();
 	}
 
-	private List<PictureItem> queryImages() {
+    private List<PictureItem> queryImages() {
 		List<PictureItem> pathList = new ArrayList<PictureItem>();
 
 		File f = new File(Utility.MEDIA_FOLDER_SOURCE);

@@ -67,12 +67,7 @@ public class FileItem {
 	public boolean deleteItem() {
 		File file = new File(path);
 
-		if (file.delete()) {
-			// TODO: Create a callback to release items that are in main memory
-			return true;
-		}
-
-		return false;
+		return file.delete();
 	}
 
 	@Override
