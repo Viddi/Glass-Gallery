@@ -25,8 +25,7 @@ import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 import is.vidarottosson.glass.gallery.widget.VideoView;
 
-public class VideoScrollAdapter extends CardScrollAdapter implements TextureView.SurfaceTextureListener, MediaPlayer.OnCompletionListener,
-		MediaPlayer.OnPreparedListener {
+public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 	public static final String TAG = VideoScrollAdapter.class.getSimpleName();
 
 	private final Context mContext;
@@ -67,7 +66,7 @@ public class VideoScrollAdapter extends CardScrollAdapter implements TextureView
 	}
 
 	@Override
-	public View getView(int position, View view, ViewGroup parent) {
+	public View getView(final int position, View view, ViewGroup parent) {
 		final ViewHolder holder;
 
 		if (view == null) {
@@ -83,7 +82,41 @@ public class VideoScrollAdapter extends CardScrollAdapter implements TextureView
 			holder = (ViewHolder) view.getTag();
 		}
 
-		holder.videoView.setSurfaceTextureListener(this);
+		holder.videoView.setVideo(mVideos.get(position));
+		holder.videoView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
+			@Override
+			public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+				Surface s = new Surface(surface);
+
+				mPlayer = new MediaPlayer();
+				try {
+					mPlayer.setDataSource(mVideos.get(position).getPath());
+				}
+				catch (IOException e) {
+					Log.e(TAG, "No data source available.");
+				}
+				mPlayer.setSurface(s);
+				mPlayer.prepareAsync();
+				mPlayer.setOnPreparedListener(VideoScrollAdapter.this);
+				mPlayer.setOnCompletionListener(VideoScrollAdapter.this);
+			}
+
+			@Override
+			public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int width, int height) {
+
+			}
+
+			@Override
+			public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
+				mPlayer.stop();
+                return false;
+			}
+
+			@Override
+			public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
+
+			}
+		});
 
 		return setItemOnCard(this, view);
 	}
@@ -124,40 +157,8 @@ public class VideoScrollAdapter extends CardScrollAdapter implements TextureView
 	//                                                              |_|
 
 	@Override
-	public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-		Surface s = new Surface(surface);
-
-		mPlayer = new MediaPlayer();
-		try {
-			mPlayer.setDataSource("http://daily3gp.com/vids/747.3gp");
-		}
-		catch (IOException e) {
-			Log.e(TAG, "No data source available.");
-		}
-		mPlayer.setSurface(s);
-		mPlayer.prepareAsync();
-		mPlayer.setOnPreparedListener(this);
-		mPlayer.setOnCompletionListener(this);
-	}
-
-	@Override
-	public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
-	}
-
-	@Override
-	public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-		return false;
-	}
-
-	@Override
-	public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
-	}
-
-	@Override
 	public void onPrepared(MediaPlayer mediaPlayer) {
-
+		mediaPlayer.start();
 	}
 
 	@Override

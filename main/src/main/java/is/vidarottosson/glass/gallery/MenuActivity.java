@@ -9,11 +9,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import is.vidarottosson.glass.gallery.pics.PictureActivity;
+import is.vidarottosson.glass.gallery.video.VideoActivity;
 
 public class MenuActivity extends Activity {
     public static final String TAG = MenuActivity.class.getSimpleName();
 
     public static final int INTENT_PICTURES = 100;
+    public static final int INTENT_VIDEOS = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,8 @@ public class MenuActivity extends Activity {
                 startActivityForResult(picIntent, INTENT_PICTURES);
                 return true;
             case R.id.videos:
-                // TODO: Find Videos folder and display list
+                Intent videoIntent = new Intent(this, VideoActivity.class);
+                startActivityForResult(videoIntent,INTENT_VIDEOS);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
