@@ -21,8 +21,7 @@
             android:gravity="center"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@android:color/white"
-            android:layout_alignBottom="@+id/video_videoView"
-            android:text="Dummy Picture"/>
+            android:layout_alignBottom="@+id/video_videoView"/>
 
     <ProgressBar
             android:id="@+id/video_progressBar"

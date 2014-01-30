@@ -4,6 +4,7 @@ package is.vidarottosson.glass.gallery.video;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -82,6 +83,7 @@ public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer
 			holder = (ViewHolder) view.getTag();
 		}
 
+        holder.videoView.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), mVideos.get(position).getThumbnailImage()));
 		holder.videoView.setVideo(mVideos.get(position));
 		holder.videoView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
 			@Override

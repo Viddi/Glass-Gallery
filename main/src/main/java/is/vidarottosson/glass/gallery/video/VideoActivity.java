@@ -3,8 +3,11 @@ package is.vidarottosson.glass.gallery.video;
 //  Created by jonstaff on 1/17/14.
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.TextureView;
 
@@ -86,7 +89,9 @@ public class VideoActivity extends Activity {
 		for (File file : files) {
 			if (Utility.isVideo(file.getName())) {
 				VideoItem item = new VideoItem(file.getAbsolutePath(), file.getName());
-				item.setFileType(FileItem.Type.VIDEO);
+
+				Bitmap thumb = ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Images.Thumbnails.MICRO_KIND);
+				item.setThumbnailImage(thumb);
 
 				pathList.add(item);
 				Log.i(TAG, "Added a video: " + file.getAbsoluteFile());

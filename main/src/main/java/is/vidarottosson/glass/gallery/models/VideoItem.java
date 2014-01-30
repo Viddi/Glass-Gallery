@@ -2,6 +2,8 @@ package is.vidarottosson.glass.gallery.models;
 
 //  Created by jonstaff on 1/17/14.
 
+import android.graphics.Bitmap;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,6 +15,8 @@ public class VideoItem extends FileItem {
 
 	public static final List<String> EXTENSIONS_VIDEO = Arrays.asList(EXTENSION_MP4, EXTENSION_AVI, EXTENSION_MKV);
 
+	private Bitmap mThumbnail;
+
 	//      ____                _                   _
 	//     / ___|___  _ __  ___| |_ _ __ _   _  ___| |_ ___  _ __ ___
 	//    | |   / _ \| '_ \/ __| __| '__| | | |/ __| __/ _ \| '__/ __|
@@ -23,5 +27,11 @@ public class VideoItem extends FileItem {
 		super(Type.VIDEO, path, name);
 	}
 
+	public Bitmap getThumbnailImage() {
+		return mThumbnail;
+	}
 
+	public void setThumbnailImage(Bitmap thumb) {
+		mThumbnail = thumb;
+	}
 }
