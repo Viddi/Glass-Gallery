@@ -13,6 +13,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -71,54 +72,20 @@ public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer
 		final ViewHolder holder;
 
 		if (view == null) {
-			view = LayoutInflater.from(mContext).inflate(R.layout.activity_video, parent);
+			view = LayoutInflater.from(mContext).inflate(R.layout.activity_video_list, parent);
 
 			holder = new ViewHolder();
-			holder.videoView = (VideoView) view.findViewById(R.id.video_videoView);
-			holder.txtName = (TextView) view.findViewById(R.id.video_textView);
-			holder.progressBar = (ProgressBar) view.findViewById(R.id.video_progressBar);
+			holder.thumbnail = (ImageView) view.findViewById(R.id.videoList_imageView);
+			holder.txtName = (TextView) view.findViewById(R.id.videoList_textView);
+			holder.progressBar = (ProgressBar) view.findViewById(R.id.videoList_progressBar);
 
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder) view.getTag();
 		}
 
-        holder.videoView.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), mVideos.get(position).getThumbnailImage()));
-		holder.videoView.setVideo(mVideos.get(position));
-		holder.videoView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
-			@Override
-			public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-				Surface s = new Surface(surface);
-
-				mPlayer = new MediaPlayer();
-				try {
-					mPlayer.setDataSource(mVideos.get(position).getPath());
-				}
-				catch (IOException e) {
-					Log.e(TAG, "No data source available.");
-				}
-				mPlayer.setSurface(s);
-				mPlayer.prepareAsync();
-				mPlayer.setOnPreparedListener(VideoScrollAdapter.this);
-				mPlayer.setOnCompletionListener(VideoScrollAdapter.this);
-			}
-
-			@Override
-			public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int width, int height) {
-
-			}
-
-			@Override
-			public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
-				mPlayer.stop();
-                return false;
-			}
-
-			@Override
-			public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
-
-			}
-		});
+		holder.thumbnail.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), mVideos.get(position).getThumbnailImage()));
+		holder.txtName.setText(mVideos.get(position).getName());
 
 		return setItemOnCard(this, view);
 	}
@@ -146,7 +113,7 @@ public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer
 	//       \_/  |_|\___| \_/\_/ |_| |_|\___/|_|\__,_|\___|_|
 
 	static class ViewHolder {
-		VideoView videoView;
+		ImageView thumbnail;
 		TextView txtName;
 		ProgressBar progressBar;
 	}
