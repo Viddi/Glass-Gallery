@@ -1,4 +1,4 @@
-package is.vidarottosson.glass.gallery.video;
+package is.vidarottosson.glass.gallery.widget;
 
 //  Created by jonathon on 1/29/14.
 
@@ -8,20 +8,20 @@ import android.view.TextureView;
 
 import is.vidarottosson.glass.gallery.models.VideoItem;
 
-public class VideoPlayer extends TextureView {
-	public static final String TAG = VideoPlayer.class.getSimpleName();
+public class VideoView extends TextureView {
+	public static final String TAG = VideoView.class.getSimpleName();
 
 	private VideoItem mVideo;
 
-	public VideoPlayer(Context context) {
+	public VideoView(Context context) {
 		this(context, null);
 	}
 
-	public VideoPlayer(Context context, AttributeSet attrs) {
+	public VideoView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public VideoPlayer(Context context, AttributeSet attrs, int defStyle) {
+	public VideoView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
 

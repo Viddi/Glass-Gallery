@@ -4,7 +4,6 @@ package is.vidarottosson.glass.gallery.video;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +12,8 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 
@@ -27,6 +23,7 @@ import java.util.List;
 
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
+import is.vidarottosson.glass.gallery.widget.VideoView;
 
 public class VideoScrollAdapter extends CardScrollAdapter implements TextureView.SurfaceTextureListener, MediaPlayer.OnCompletionListener,
 		MediaPlayer.OnPreparedListener {
@@ -77,7 +74,7 @@ public class VideoScrollAdapter extends CardScrollAdapter implements TextureView
 			view = LayoutInflater.from(mContext).inflate(R.layout.activity_video, parent);
 
 			holder = new ViewHolder();
-			holder.videoView = (TextureView) view.findViewById(R.id.video_videoView);
+			holder.videoView = (VideoView) view.findViewById(R.id.video_videoView);
 			holder.txtName = (TextView) view.findViewById(R.id.video_textView);
 			holder.progressBar = (ProgressBar) view.findViewById(R.id.video_progressBar);
 
@@ -114,7 +111,7 @@ public class VideoScrollAdapter extends CardScrollAdapter implements TextureView
 	//       \_/  |_|\___| \_/\_/ |_| |_|\___/|_|\__,_|\___|_|
 
 	static class ViewHolder {
-		TextureView videoView;
+		VideoView videoView;
 		TextView txtName;
 		ProgressBar progressBar;
 	}
