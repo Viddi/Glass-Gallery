@@ -124,7 +124,11 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	//    |_|   |_|  |_| \_/ \__,_|\__\___| |_|  |_|\___|\__|_| |_|\___/ \__,_|___/
 
 	private void togglePlaying() {
-		// TODO: implement playing
+		if (mVideoView.isPlaying()) {
+			mVideoView.pause();
+		} else {
+			mVideoView.start();
+		}
 	}
 
 	private void showMenu() {
