@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class FileItem implements Serializable {
+public class FileItem {
 
 	public enum Type {
 		PICTURE, VIDEO, MUSIC

@@ -3,13 +3,9 @@ package is.vidarottosson.glass.gallery.video;
 //  Created by jonstaff on 1/17/14.
 
 import android.content.Context;
-import android.graphics.SurfaceTexture;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Surface;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,13 +15,10 @@ import android.widget.TextView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
-import is.vidarottosson.glass.gallery.widget.VideoView;
 
 public class VideoScrollAdapter extends CardScrollAdapter {
 	public static final String TAG = VideoScrollAdapter.class.getSimpleName();
