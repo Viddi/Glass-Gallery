@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.io.Serializable;
+
 import is.vidarottosson.glass.gallery.R;
 
-public class PictureItem extends FileItem {
+public class PictureItem extends FileItem implements Serializable {
     public static final String TAG = PictureItem.class.getSimpleName();
 
     private Bitmap bitmap;
@@ -48,19 +50,19 @@ public class PictureItem extends FileItem {
         }
     }
 
-    public Bitmap getBitmap() {
-        if(bitmap.isRecycled()) {
-            return BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_question);
-        }
-        return bitmap;
-    }
-
     public boolean isLoaded() {
         if(bitmap != null) {
             return true;
         }
 
         return false;
+    }
+
+    public Bitmap getBitmap() {
+        if(bitmap.isRecycled()) {
+            return BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_question);
+        }
+        return bitmap;
     }
 
     public void setBitmap(Bitmap bitmap) {
