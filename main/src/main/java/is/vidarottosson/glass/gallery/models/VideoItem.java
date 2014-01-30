@@ -4,10 +4,11 @@ package is.vidarottosson.glass.gallery.models;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class VideoItem extends FileItem {
+public class VideoItem extends FileItem implements Serializable {
 
 	public static final String EXTENSION_MP4 = ".mp4";
 	public static final String EXTENSION_AVI = ".avi";
@@ -15,7 +16,7 @@ public class VideoItem extends FileItem {
 
 	public static final List<String> EXTENSIONS_VIDEO = Arrays.asList(EXTENSION_MP4, EXTENSION_AVI, EXTENSION_MKV);
 
-    public static final String KEY_FOR_INTENT_EXTRA = "videoItem";
+	public static final String KEY_FOR_INTENT_EXTRA = "videoItem";
 
 	private Bitmap mThumbnail;
 

@@ -6,13 +6,12 @@
                 android:layout_height="match_parent"
                 android:gravity="center">
 
-    <is.vidarottosson.glass.gallery.widget.VideoView
+    <VideoView
             android:id="@+id/video_videoView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
-            android:layout_centerHorizontal="true">
-    </is.vidarottosson.glass.gallery.widget.VideoView>
+            android:layout_centerHorizontal="true"/>
 
     <TextView
             android:id="@+id/video_textView"

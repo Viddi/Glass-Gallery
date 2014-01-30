@@ -4,4 +4,6 @@
     <string name="gallery_videos">Videos</string>
     <string name="show_gallery">Gallery</string>
     <string name="error_picture">Failed to load image</string>
+    <string name="share">Share with...</string>
+    <string name="delete">Delete</string>
 </resources>
