@@ -3,10 +3,11 @@ package is.vidarottosson.glass.gallery.models;
 //  Created by Viddi on 12/6/13.
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class FileItem {
+public class FileItem implements Serializable {
 
 	public enum Type {
 		PICTURE, VIDEO, MUSIC

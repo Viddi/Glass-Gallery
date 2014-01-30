@@ -6,26 +6,26 @@
                 android:layout_height="match_parent"
                 android:gravity="center">
 
-    <is.vidarottosson.glass.gallery.widget.VideoView
-            android:id="@+id/video_videoView"
+    <ImageView
+            android:id="@+id/videoList_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
-            android:layout_centerHorizontal="true">
-    </is.vidarottosson.glass.gallery.widget.VideoView>
+            android:src="@drawable/dummy"
+            android:layout_centerHorizontal="true"/>
 
     <TextView
-            android:id="@+id/video_textView"
+            android:id="@+id/videoList_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@android:color/white"
-            android:layout_alignBottom="@+id/video_videoView"
+            android:layout_alignBottom="@+id/videoList_imageView"
             android:text="Dummy Picture"/>
 
     <ProgressBar
-            android:id="@+id/video_progressBar"
+            android:id="@+id/videoList_progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
