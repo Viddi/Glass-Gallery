@@ -15,6 +15,8 @@ public class VideoItem extends FileItem {
 
 	public static final List<String> EXTENSIONS_VIDEO = Arrays.asList(EXTENSION_MP4, EXTENSION_AVI, EXTENSION_MKV);
 
+    public static final String KEY_FOR_INTENT_EXTRA = "videoItem";
+
 	private Bitmap mThumbnail;
 
 	//      ____                _                   _

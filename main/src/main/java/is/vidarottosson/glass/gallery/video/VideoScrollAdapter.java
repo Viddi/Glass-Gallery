@@ -27,16 +27,11 @@ import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 import is.vidarottosson.glass.gallery.widget.VideoView;
 
-public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
+public class VideoScrollAdapter extends CardScrollAdapter {
 	public static final String TAG = VideoScrollAdapter.class.getSimpleName();
 
 	private final Context mContext;
 	private List<VideoItem> mVideos;
-	private List<Integer> mCachedPositions;
-
-	private MediaPlayer mPlayer;
-
-	public static final int MAX_VIDEOS_CACHE = 5;
 
 	//      ____                _                   _
 	//     / ___|___  _ __  ___| |_ _ __ _   _  ___| |_ ___  _ __ ___
@@ -47,7 +42,6 @@ public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer
 	public VideoScrollAdapter(Context context, List<VideoItem> videos) {
 		mContext = context;
 		mVideos = videos;
-		mCachedPositions = new ArrayList<Integer>(MAX_VIDEOS_CACHE);
 	}
 
 	//     ____                            _                  ___                      _     _
@@ -63,13 +57,14 @@ public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer
 	}
 
 	@Override
-	public Object getItem(int index) {
+	public VideoItem getItem(int index) {
 		return mVideos.get(index);
 	}
 
 	@Override
 	public View getView(final int position, View view, ViewGroup parent) {
-		final ViewHolder holder;
+		ViewHolder holder;
+		VideoItem video = mVideos.get(position);
 
 		if (view == null) {
 			view = LayoutInflater.from(mContext).inflate(R.layout.activity_video_list, parent);
@@ -84,8 +79,8 @@ public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer
 			holder = (ViewHolder) view.getTag();
 		}
 
-		holder.thumbnail.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), mVideos.get(position).getThumbnailImage()));
-		holder.txtName.setText(mVideos.get(position).getName());
+		holder.thumbnail.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), video.getThumbnailImage()));
+		holder.txtName.setText(video.getName());
 
 		return setItemOnCard(this, view);
 	}
@@ -116,22 +111,5 @@ public class VideoScrollAdapter extends CardScrollAdapter implements MediaPlayer
 		ImageView thumbnail;
 		TextView txtName;
 		ProgressBar progressBar;
-	}
-
-	//     ___       _             __                  ___                 _                           _        _   _
-	//    |_ _|_ __ | |_ ___ _ __ / _| __ _  ___ ___  |_ _|_ __ ___  _ __ | | ___ _ __ ___   ___ _ __ | |_ __ _| |_(_) ___  _ __  ___
-	//     | || '_ \| __/ _ \ '__| |_ / _` |/ __/ _ \  | || '_ ` _ \| '_ \| |/ _ \ '_ ` _ \ / _ \ '_ \| __/ _` | __| |/ _ \| '_ \/ __|
-	//     | || | | | ||  __/ |  |  _| (_| | (_|  __/  | || | | | | | |_) | |  __/ | | | | |  __/ | | | || (_| | |_| | (_) | | | \__ \
-	//    |___|_| |_|\__\___|_|  |_|  \__,_|\___\___| |___|_| |_| |_| .__/|_|\___|_| |_| |_|\___|_| |_|\__\__,_|\__|_|\___/|_| |_|___/
-	//                                                              |_|
-
-	@Override
-	public void onPrepared(MediaPlayer mediaPlayer) {
-		mediaPlayer.start();
-	}
-
-	@Override
-	public void onCompletion(MediaPlayer mediaPlayer) {
-
 	}
 }

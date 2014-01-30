@@ -32,6 +32,12 @@
                 android:enabled="true">
         </activity>
 
+        <activity
+                android:name=".video.VideoListActivity"
+                android:label="@string/app_name"
+                android:enabled="true">
+        </activity>
+
         <service
                 android:name=".GalleryService"
                 android:label="@string/app_name"
