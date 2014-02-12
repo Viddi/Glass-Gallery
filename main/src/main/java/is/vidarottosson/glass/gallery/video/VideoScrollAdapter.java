@@ -78,7 +78,7 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 
         // TODO: fix this soon, but it should provide a solution for now even though it's more work than should be done
 
-        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
+        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.getPath(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
 
         holder.thumbnail.setImageBitmap(thumb);
 		holder.txtName.setText(video.getName());
