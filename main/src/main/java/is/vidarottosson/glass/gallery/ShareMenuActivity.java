@@ -1,6 +1,6 @@
-package is.vidarottosson.glass.gallery.video;
+package is.vidarottosson.glass.gallery;
 
-//  Created by jonstaff on 1/30/14.
+//  Created by jonstaff on 2/12/14.
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,11 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import is.vidarottosson.glass.gallery.R;
-import is.vidarottosson.glass.gallery.ShareMenuActivity;
-
-public class VideoMenuActivity extends Activity {
-	public static final String TAG = VideoMenuActivity.class.getSimpleName();
+public class ShareMenuActivity extends Activity {
+	public static final String TAG = ShareMenuActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +27,7 @@ public class VideoMenuActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.video, menu);
+		inflater.inflate(R.menu.share, menu);
 
 		return true;
 	}
@@ -39,8 +36,7 @@ public class VideoMenuActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.share:
-                Intent i = new Intent(this, ShareMenuActivity.class);
-                startActivity(i);
+				// TODO: open an option to share?
 				return true;
 			case R.id.delete:
 				// TODO: delete that video

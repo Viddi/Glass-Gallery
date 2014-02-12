@@ -31,6 +31,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import is.vidarottosson.glass.gallery.R;
+import is.vidarottosson.glass.gallery.ShareMenuActivity;
 import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 import is.vidarottosson.glass.gallery.util.Utility;
@@ -106,12 +107,14 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	public boolean onGesture(Gesture gesture) {
 		Log.i(TAG, "the gesture is: " + gesture);
 		if (gesture == Gesture.TAP || gesture == Gesture.LONG_PRESS) {
-			showMenu();
+			togglePlaying();
+            showMenu();
 			return true;
 		}
 
 		if (gesture == Gesture.TWO_TAP) {
 			togglePlaying();
+            return true;
 		}
 
 		return false;
