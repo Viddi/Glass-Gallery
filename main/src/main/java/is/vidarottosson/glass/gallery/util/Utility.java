@@ -1,7 +1,6 @@
 package is.vidarottosson.glass.gallery.util;
 //  Created by Viddi on 12/8/13.
 
-import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 

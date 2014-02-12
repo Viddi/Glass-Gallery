@@ -5,12 +5,6 @@ package is.vidarottosson.glass.gallery.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamException;
-import java.io.Serializable;
-
 public class VideoItem extends FileItem implements Parcelable {
 
 	public static final String EXTENSION_MP4 = ".mp4";
@@ -38,8 +32,8 @@ public class VideoItem extends FileItem implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
-        out.writeString(getPath());
-        out.writeString(getName());
+		out.writeString(getPath());
+		out.writeString(getName());
 	}
 
 	public static final Parcelable.Creator<VideoItem> CREATOR = new Parcelable.Creator<VideoItem>() {
