@@ -117,6 +117,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 
 	private void showMenu() {
 		Intent intent = new Intent(this, VideoMenuActivity.class);
+        intent.putExtra(VideoItem.KEY_FOR_INTENT_EXTRA, mVideo);
 		startActivity(intent);
 	}
 }
