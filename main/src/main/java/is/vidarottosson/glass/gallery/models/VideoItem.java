@@ -25,6 +25,12 @@ public class VideoItem extends FileItem implements Parcelable {
 		super(Type.VIDEO, path, name);
 	}
 
+	//     ____                    _       _     _
+	//    |  _ \ __ _ _ __ ___ ___| | __ _| |__ | | ___
+	//    | |_) / _` | '__/ __/ _ \ |/ _` | '_ \| |/ _ \
+	//    |  __/ (_| | | | (_|  __/ | (_| | |_) | |  __/
+	//    |_|   \__,_|_|  \___\___|_|\__,_|_.__/|_|\___|
+
 	@Override
 	public int describeContents() {
 		return 0;

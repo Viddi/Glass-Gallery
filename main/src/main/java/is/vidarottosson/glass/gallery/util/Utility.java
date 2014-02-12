@@ -10,7 +10,7 @@ public class Utility {
     public static boolean isImage(String filename) {
         String extension = getExtension(filename);
 
-        for(String str : PictureItem.EXTENTIONS_PICTURE) {
+        for(String str : PictureItem.EXTENSIONS_PICTURE) {
             if(extension.equals(str)) {
                 return true;
             }

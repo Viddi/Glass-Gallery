@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
@@ -15,10 +17,10 @@ import java.io.Serializable;
 
 import is.vidarottosson.glass.gallery.R;
 
-public class PictureItem extends FileItem implements Serializable {
+public class PictureItem extends FileItem implements Parcelable {
 	public static final String TAG = PictureItem.class.getSimpleName();
 
-	public static final String EXTENTIONS_PICTURE[] = {EXTENSION_PNG, EXTENSION_JPG, EXTENSION_JPEG, EXTENSION_BMP};
+	public static final String EXTENSIONS_PICTURE[] = {EXTENSION_PNG, EXTENSION_JPG, EXTENSION_JPEG, EXTENSION_BMP};
 
 	private Bitmap mBitmap;
 
@@ -54,12 +56,8 @@ public class PictureItem extends FileItem implements Serializable {
 	}
 
 	public boolean isLoaded() {
-		if (mBitmap != null) {
-			return true;
-		}
-
-		return false;
-	}
+        return mBitmap != null;
+    }
 
 	public Bitmap getBitmap() {
 		if (mBitmap.isRecycled()) {
@@ -72,4 +70,34 @@ public class PictureItem extends FileItem implements Serializable {
 		mBitmap = bitmap;
 	}
 
+    //     ____                    _       _     _
+    //    |  _ \ __ _ _ __ ___ ___| | __ _| |__ | | ___
+    //    | |_) / _` | '__/ __/ _ \ |/ _` | '_ \| |/ _ \
+    //    |  __/ (_| | | | (_|  __/ | (_| | |_) | |  __/
+    //    |_|   \__,_|_|  \___\___|_|\__,_|_.__/|_|\___|
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(getPath());
+        out.writeString(getName());
+    }
+
+    public static final Parcelable.Creator<PictureItem> CREATOR = new Parcelable.Creator<PictureItem>() {
+        public PictureItem createFromParcel(Parcel in) {
+            return new PictureItem(in);
+        }
+
+        public PictureItem[] newArray(int size) {
+            return new PictureItem[size];
+        }
+    };
+
+    private PictureItem(Parcel in) {
+        super(Type.PICTURE, in.readString(), in.readString());
+    }
 }
