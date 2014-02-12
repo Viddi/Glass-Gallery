@@ -3,8 +3,6 @@ package is.vidarottosson.glass.gallery.models;
 //  Created by jonstaff on 1/17/14.
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 public class VideoItem extends FileItem implements Serializable {
 
@@ -12,7 +10,7 @@ public class VideoItem extends FileItem implements Serializable {
 	public static final String EXTENSION_AVI = ".avi";
 	public static final String EXTENSION_MKV = ".mkv";
 
-	public static final List<String> EXTENSIONS_VIDEO = Arrays.asList(EXTENSION_MP4, EXTENSION_AVI, EXTENSION_MKV);
+	public static final String EXTENSIONS_VIDEO[] = {EXTENSION_MP4, EXTENSION_AVI, EXTENSION_MKV};
 
 	public static final String KEY_FOR_INTENT_EXTRA = "videoItem";
 
@@ -28,11 +26,11 @@ public class VideoItem extends FileItem implements Serializable {
 		super(Type.VIDEO, path, name);
 	}
 
-//	public String getThumbnailPath() {
-//		return mThumbnailPath;
-//	}
-//
-//	public void setThumbnailPath(String path) {
-//		mThumbnailPath = path;
-//	}
+	//	public String getThumbnailPath() {
+	//		return mThumbnailPath;
+	//	}
+	//
+	//	public void setThumbnailPath(String path) {
+	//		mThumbnailPath = path;
+	//	}
 }
