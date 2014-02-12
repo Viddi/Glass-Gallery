@@ -77,6 +77,10 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 
 		Log.i(TAG, "Querying videos...");
 
+        if (files == null) {
+            // TODO: show the user that there are no files
+        }
+
 		Arrays.sort(files, new Comparator<File>() {
 			@Override
 			public int compare(File f1, File f2) {
@@ -93,9 +97,6 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 		for (File file : files) {
 			if (Utility.isVideo(file.getName())) {
 				VideoItem item = new VideoItem(file.getAbsolutePath(), file.getName());
-
-				Bitmap thumb = ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Images.Thumbnails.MICRO_KIND);
-				item.setThumbnailImage(thumb);
 
 				pathList.add(item);
 				Log.i(TAG, "Added a video: " + file.getAbsoluteFile());

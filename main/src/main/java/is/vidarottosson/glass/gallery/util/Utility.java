@@ -1,7 +1,7 @@
 package is.vidarottosson.glass.gallery.util;
 //  Created by Viddi on 12/8/13.
 
-import is.vidarottosson.glass.gallery.models.FileItem;
+import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 
 public class Utility {
@@ -10,7 +10,7 @@ public class Utility {
     public static boolean isImage(String filename) {
         String extension = getExtension(filename);
 
-        for(String str : FileItem.EXTENTIONS_PICTURE) {
+        for(String str : PictureItem.EXTENTIONS_PICTURE) {
             if(extension.equals(str)) {
                 return true;
             }

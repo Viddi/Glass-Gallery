@@ -1,4 +1,5 @@
 package is.vidarottosson.glass.gallery.models;
+
 //  Created by Viddi on 12/8/13.
 
 import android.content.Context;
@@ -15,58 +16,60 @@ import java.io.Serializable;
 import is.vidarottosson.glass.gallery.R;
 
 public class PictureItem extends FileItem implements Serializable {
-    public static final String TAG = PictureItem.class.getSimpleName();
+	public static final String TAG = PictureItem.class.getSimpleName();
 
-    private Bitmap bitmap;
+	public static final String EXTENTIONS_PICTURE[] = {EXTENSION_PNG, EXTENSION_JPG, EXTENSION_JPEG, EXTENSION_BMP};
 
-    public PictureItem(String path, String name) {
-        super(Type.PICTURE, path, name);
-    }
+	private Bitmap mBitmap;
 
-    public void createBitmap(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+	public PictureItem(String path, String name) {
+		super(Type.PICTURE, path, name);
+	}
 
-        int width = size.x;
-        int height = size.y;
+	public void createBitmap(Context context) {
+		WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		Display display = windowManager.getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
 
-        Bitmap tempBitmap = BitmapFactory.decodeFile(getPath());
+		int width = size.x;
+		int height = size.y;
 
-        // Screen dimensions are 640x360
+		Bitmap tempBitmap = BitmapFactory.decodeFile(getPath());
 
-        bitmap = Bitmap.createScaledBitmap(tempBitmap, width, height, false);
-        tempBitmap.recycle();
+		// Screen dimensions are 640x360
 
-        Log.i(TAG, "Created Bitmap");
-    }
+		mBitmap = Bitmap.createScaledBitmap(tempBitmap, width, height, false);
+		tempBitmap.recycle();
 
-    public void destroyBitmap() {
-        if (isLoaded()) {
-            bitmap.recycle();
-            bitmap = null;
-            Log.i(TAG, "Recycled Bitmap");
-        }
-    }
+		Log.i(TAG, "Created Bitmap");
+	}
 
-    public boolean isLoaded() {
-        if(bitmap != null) {
-            return true;
-        }
+	public void destroyBitmap() {
+		if (isLoaded()) {
+			mBitmap.recycle();
+			mBitmap = null;
+			Log.i(TAG, "Recycled Bitmap");
+		}
+	}
 
-        return false;
-    }
+	public boolean isLoaded() {
+		if (mBitmap != null) {
+			return true;
+		}
 
-    public Bitmap getBitmap() {
-        if(bitmap.isRecycled()) {
-            return BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_question);
-        }
-        return bitmap;
-    }
+		return false;
+	}
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
+	public Bitmap getBitmap() {
+		if (mBitmap.isRecycled()) {
+			return BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_question);
+		}
+		return mBitmap;
+	}
+
+	public void setBitmap(Bitmap bitmap) {
+		mBitmap = bitmap;
+	}
 
 }

@@ -4,17 +4,11 @@ package is.vidarottosson.glass.gallery.video;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.TextureView;
 import android.view.View;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,18 +16,9 @@ import android.widget.VideoView;
 
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
-import com.google.android.glass.widget.CardScrollView;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 import is.vidarottosson.glass.gallery.R;
-import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.VideoItem;
-import is.vidarottosson.glass.gallery.util.Utility;
 
 public class VideoActivity extends Activity implements GestureDetector.BaseListener {
 	public static final String TAG = VideoActivity.class.getSimpleName();
@@ -76,9 +61,6 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mProgressBar = (ProgressBar) findViewById(R.id.video_progressBar);
 		// FIXME: ^^ is this animating by default?
 
-		MediaController controller = new MediaController(this);
-		controller.setAnchorView(mVideoView);
-		mVideoView.setMediaController(controller);
 		mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 			@Override
 			public void onPrepared(MediaPlayer mediaPlayer) {
@@ -106,12 +88,14 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	public boolean onGesture(Gesture gesture) {
 		Log.i(TAG, "the gesture is: " + gesture);
 		if (gesture == Gesture.TAP || gesture == Gesture.LONG_PRESS) {
+			togglePlaying();
 			showMenu();
 			return true;
 		}
 
 		if (gesture == Gesture.TWO_TAP) {
 			togglePlaying();
+			return true;
 		}
 
 		return false;
@@ -132,7 +116,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	}
 
 	private void showMenu() {
-	    Intent intent = new Intent(this, VideoMenuActivity.class);
-        startActivity(intent);
-    }
+		Intent intent = new Intent(this, VideoMenuActivity.class);
+		startActivity(intent);
+	}
 }
