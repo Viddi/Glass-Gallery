@@ -3,7 +3,11 @@ package is.vidarottosson.glass.gallery.video;
 //  Created by jonstaff on 1/17/14.
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +76,11 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 			holder = (ViewHolder) view.getTag();
 		}
 
-		holder.thumbnail.setBackgroundDrawable(new BitmapDrawable(mContext.getResources(), video.getThumbnailImage()));
+        // TODO: fix this soon, but it should provide a solution for now even though it's more work than should be done
+
+        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.getPath(), MediaStore.Images.Thumbnails.MICRO_KIND);
+
+        holder.thumbnail.setImageBitmap(thumb);
 		holder.txtName.setText(video.getName());
 
 		return setItemOnCard(this, view);

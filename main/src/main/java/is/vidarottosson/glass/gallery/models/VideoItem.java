@@ -2,8 +2,6 @@ package is.vidarottosson.glass.gallery.models;
 
 //  Created by jonstaff on 1/17/14.
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +16,7 @@ public class VideoItem extends FileItem implements Serializable {
 
 	public static final String KEY_FOR_INTENT_EXTRA = "videoItem";
 
-	private Bitmap mThumbnail;
+	private String mThumbnailPath;
 
 	//      ____                _                   _
 	//     / ___|___  _ __  ___| |_ _ __ _   _  ___| |_ ___  _ __ ___
@@ -30,11 +28,11 @@ public class VideoItem extends FileItem implements Serializable {
 		super(Type.VIDEO, path, name);
 	}
 
-	public Bitmap getThumbnailImage() {
-		return mThumbnail;
-	}
-
-	public void setThumbnailImage(Bitmap thumb) {
-		mThumbnail = thumb;
-	}
+//	public String getThumbnailPath() {
+//		return mThumbnailPath;
+//	}
+//
+//	public void setThumbnailPath(String path) {
+//		mThumbnailPath = path;
+//	}
 }
