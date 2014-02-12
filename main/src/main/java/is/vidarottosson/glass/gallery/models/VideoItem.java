@@ -2,9 +2,16 @@ package is.vidarottosson.glass.gallery.models;
 
 //  Created by jonstaff on 1/17/14.
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 
-public class VideoItem extends FileItem implements Serializable {
+public class VideoItem extends FileItem implements Parcelable {
 
 	public static final String EXTENSION_MP4 = ".mp4";
 	public static final String EXTENSION_AVI = ".avi";
@@ -13,8 +20,6 @@ public class VideoItem extends FileItem implements Serializable {
 	public static final String EXTENSIONS_VIDEO[] = {EXTENSION_MP4, EXTENSION_AVI, EXTENSION_MKV};
 
 	public static final String KEY_FOR_INTENT_EXTRA = "videoItem";
-
-	private String mThumbnailPath;
 
 	//      ____                _                   _
 	//     / ___|___  _ __  ___| |_ _ __ _   _  ___| |_ ___  _ __ ___
@@ -26,11 +31,28 @@ public class VideoItem extends FileItem implements Serializable {
 		super(Type.VIDEO, path, name);
 	}
 
-	//	public String getThumbnailPath() {
-	//		return mThumbnailPath;
-	//	}
-	//
-	//	public void setThumbnailPath(String path) {
-	//		mThumbnailPath = path;
-	//	}
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+        out.writeString(getPath());
+        out.writeString(getName());
+	}
+
+	public static final Parcelable.Creator<VideoItem> CREATOR = new Parcelable.Creator<VideoItem>() {
+		public VideoItem createFromParcel(Parcel in) {
+			return new VideoItem(in);
+		}
+
+		public VideoItem[] newArray(int size) {
+			return new VideoItem[size];
+		}
+	};
+
+	private VideoItem(Parcel in) {
+		super(Type.VIDEO, in.readString(), in.readString());
+	}
 }
