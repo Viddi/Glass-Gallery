@@ -3,6 +3,7 @@ package is.vidarottosson.glass.gallery.pics;
 //  Created by Viddi on 12/6/13.
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.Utility;
@@ -102,7 +104,11 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
             int position = mView.getSelectedItemPosition();
             PictureItem picture = mAdapter.getItem(position);
 
-            
+            Log.i(TAG, "Position: " + position);
+
+            Intent intent = new Intent(this, OptionsMenuActivity.class);
+            intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA, picture);
+            startActivityForResult(intent, INTENT_OPTIONS_MENU);
         }
 
         return false;
