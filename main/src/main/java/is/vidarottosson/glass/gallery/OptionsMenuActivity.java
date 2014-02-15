@@ -7,19 +7,31 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import is.vidarottosson.glass.gallery.models.FileItem;
+import is.vidarottosson.glass.gallery.models.PictureItem;
+import is.vidarottosson.glass.gallery.models.VideoItem;
 
 public class OptionsMenuActivity extends Activity {
 
     public static final String TAG = OptionsMenuActivity.class.getSimpleName();
+    
+    public static final String KEY_INTENT_EXTRA_PICTURE = "pictureItem";
+    public static final String KEY_INTENT_EXTRA_VIDEO = "videoItem";
 
-    public static final String KEY_INTENT_EXTRA = "fileItem";
+    public static final int RESULT_DELETED = 301;
+
+    private FileItem mFileItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getIntent().getExtras() != null) {
-
+        Bundle bundle = getIntent().getExtras();
+        if(bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE) != null) {
+            mFileItem = (PictureItem) bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE);
+        }
+        else if(bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO) != null) {
+            mFileItem = (VideoItem) bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO);
         }
     }
 
@@ -49,6 +61,10 @@ public class OptionsMenuActivity extends Activity {
                 return true;
             case R.id.delete:
                 // TODO: delete file
+                if(mFileItem.deleteItem()) {
+                    setResult(RESULT_DELETED);
+                    finish();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

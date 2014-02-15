@@ -31,8 +31,10 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
 
 	private CardScrollView mView;
 	private PictureScrollAdapter mAdapter;
-
     private GestureDetector mGestureDetector;
+
+    private List<PictureItem> mPictureItems;
+    private int mPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,9 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
 
         mGestureDetector = new GestureDetector(this).setBaseListener(this);
 
-		mAdapter = new PictureScrollAdapter(this, queryImages());
+        mPictureItems = queryImages();
+
+		mAdapter = new PictureScrollAdapter(this, mPictureItems);
 		mView = new CardScrollView(this);
 		mView.setAdapter(mAdapter);
 
@@ -101,13 +105,11 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
     @Override
     public boolean onGesture(Gesture gesture) {
         if(gesture == Gesture.LONG_PRESS || gesture == Gesture.TAP) {
-            int position = mView.getSelectedItemPosition();
-            PictureItem picture = mAdapter.getItem(position);
-
-            Log.i(TAG, "Position: " + position);
+            mPosition = mView.getSelectedItemPosition();
+            PictureItem picture = mAdapter.getItem(mPosition);
 
             Intent intent = new Intent(this, OptionsMenuActivity.class);
-            intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA, picture);
+            intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA_PICTURE, picture);
             startActivityForResult(intent, INTENT_OPTIONS_MENU);
         }
 
@@ -120,5 +122,13 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
             return mGestureDetector.onMotionEvent(event);
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == OptionsMenuActivity.RESULT_DELETED && requestCode == INTENT_OPTIONS_MENU) {
+            mPictureItems.remove(mPosition);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
