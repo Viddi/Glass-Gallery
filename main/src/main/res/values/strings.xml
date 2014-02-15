@@ -2,9 +2,9 @@
     <string name="app_name">Gallery</string>
     <string name="gallery_pictures">Pictures</string>
     <string name="gallery_videos">Videos</string>
-    <string name="show_gallery">Gallery</string>
+    <string name="trigger_gallery">gallery</string>
     <string name="error_picture">Failed to load image</string>
-    <string name="share">Share with...</string>
+    <string name="share">Share with..</string>
     <string name="delete">Delete</string>
     <string name="g_plus">Google+</string>
     <string name="email">Email</string>

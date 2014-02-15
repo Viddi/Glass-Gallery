@@ -24,7 +24,7 @@
             </intent-filter>
             <meta-data
                     android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/gallery_show"/>
+                    android:resource="@xml/gallery_trigger"/>
 
         </activity>
 

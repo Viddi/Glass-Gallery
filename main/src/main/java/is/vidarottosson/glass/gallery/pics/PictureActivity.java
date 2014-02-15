@@ -5,7 +5,10 @@ package is.vidarottosson.glass.gallery.pics;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardScrollView;
 
 import java.io.File;
@@ -18,16 +21,22 @@ import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.Utility;
 
-public class PictureActivity extends Activity {
+public class PictureActivity extends Activity implements GestureDetector.BaseListener {
 
 	public static final String TAG = PictureActivity.class.getSimpleName();
+
+    public static final int INTENT_OPTIONS_MENU = 101;
 
 	private CardScrollView mView;
 	private PictureScrollAdapter mAdapter;
 
+    private GestureDetector mGestureDetector;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        mGestureDetector = new GestureDetector(this).setBaseListener(this);
 
 		mAdapter = new PictureScrollAdapter(this, queryImages());
 		mView = new CardScrollView(this);
@@ -86,4 +95,24 @@ public class PictureActivity extends Activity {
 
 		return pathList;
 	}
+
+    @Override
+    public boolean onGesture(Gesture gesture) {
+        if(gesture == Gesture.LONG_PRESS || gesture == Gesture.TAP) {
+            int position = mView.getSelectedItemPosition();
+            PictureItem picture = mAdapter.getItem(position);
+
+            
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        if(mGestureDetector != null) {
+            return mGestureDetector.onMotionEvent(event);
+        }
+        return false;
+    }
 }

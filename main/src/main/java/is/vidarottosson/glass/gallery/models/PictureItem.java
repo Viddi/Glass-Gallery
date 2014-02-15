@@ -18,7 +18,14 @@ import is.vidarottosson.glass.gallery.R;
 public class PictureItem extends FileItem implements Serializable {
 	public static final String TAG = PictureItem.class.getSimpleName();
 
-	public static final String EXTENTIONS_PICTURE[] = {EXTENSION_PNG, EXTENSION_JPG, EXTENSION_JPEG, EXTENSION_BMP};
+    public static final String EXTENSION_PNG = ".png";
+    public static final String EXTENSION_JPG = ".jpg";
+    public static final String EXTENSION_JPEG = ".jpeg";
+    public static final String EXTENSION_BMP = ".bmp";
+
+	public static final String EXTENSIONS_PICTURE[] = {EXTENSION_PNG, EXTENSION_JPG, EXTENSION_JPEG, EXTENSION_BMP};
+
+    public static final String KEY_FOR_INTENT_EXTRA = "pictureItem";
 
 	private Bitmap mBitmap;
 

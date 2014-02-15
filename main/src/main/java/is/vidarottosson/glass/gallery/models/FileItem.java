@@ -10,11 +10,6 @@ public class FileItem {
 		PICTURE, VIDEO, MUSIC
 	}
 
-	public static final String EXTENSION_PNG = ".png";
-	public static final String EXTENSION_JPG = ".jpg";
-	public static final String EXTENSION_JPEG = ".jpeg";
-	public static final String EXTENSION_BMP = ".bmp";
-
 	private String mPath;
 	private Type mFileType;
 	private String mName;
