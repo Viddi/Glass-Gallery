@@ -3,9 +3,13 @@ package is.vidarottosson.glass.gallery.pics;
 //  Created by Viddi on 12/6/13.
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 
+import com.google.android.glass.touchpad.Gesture;
+import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardScrollView;
 
 import java.io.File;
@@ -14,22 +18,33 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.Utility;
 
-public class PictureActivity extends Activity {
+public class PictureActivity extends Activity implements GestureDetector.BaseListener {
 
 	public static final String TAG = PictureActivity.class.getSimpleName();
 
+    public static final int INTENT_OPTIONS_MENU = 101;
+
 	private CardScrollView mView;
 	private PictureScrollAdapter mAdapter;
+    private GestureDetector mGestureDetector;
+
+    private List<PictureItem> mPictureItems;
+    private int mPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mAdapter = new PictureScrollAdapter(this, queryImages());
+        mGestureDetector = new GestureDetector(this).setBaseListener(this);
+
+        mPictureItems = queryImages();
+
+		mAdapter = new PictureScrollAdapter(this, mPictureItems);
 		mView = new CardScrollView(this);
 		mView.setAdapter(mAdapter);
 
@@ -86,4 +101,34 @@ public class PictureActivity extends Activity {
 
 		return pathList;
 	}
+
+    @Override
+    public boolean onGesture(Gesture gesture) {
+        if(gesture == Gesture.LONG_PRESS || gesture == Gesture.TAP) {
+            mPosition = mView.getSelectedItemPosition();
+            PictureItem picture = mAdapter.getItem(mPosition);
+
+            Intent intent = new Intent(this, OptionsMenuActivity.class);
+            intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA_PICTURE, picture);
+            startActivityForResult(intent, INTENT_OPTIONS_MENU);
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        if(mGestureDetector != null) {
+            return mGestureDetector.onMotionEvent(event);
+        }
+        return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == OptionsMenuActivity.RESULT_DELETED && requestCode == INTENT_OPTIONS_MENU) {
+            mPictureItems.remove(mPosition);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 }
