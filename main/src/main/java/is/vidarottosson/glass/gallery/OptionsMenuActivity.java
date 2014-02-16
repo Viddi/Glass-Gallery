@@ -61,10 +61,13 @@ public class OptionsMenuActivity extends Activity {
                 return true;
             case R.id.delete:
                 // TODO: delete file
-                if(mFileItem.deleteItem()) {
-                    setResult(RESULT_DELETED);
-                    finish();
-                }
+                Intent deleteIntent = new Intent(this, DeleteActivity.class);
+                startActivity(deleteIntent);
+
+//                if(mFileItem.deleteItem()) {
+//                    setResult(RESULT_DELETED);
+//                    finish();
+//                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
