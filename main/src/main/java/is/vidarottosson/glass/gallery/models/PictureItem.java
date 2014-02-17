@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import is.vidarottosson.glass.gallery.R;
 
 public class PictureItem extends FileItem implements Parcelable {
+
 	public static final String TAG = PictureItem.class.getSimpleName();
 
     public static final String EXTENSION_PNG = ".png";
@@ -84,12 +85,8 @@ public class PictureItem extends FileItem implements Parcelable {
 	}
 
 	public boolean isLoaded() {
-		if (mBitmap != null) {
-			return true;
-		}
-
-		return false;
-	}
+        return mBitmap != null;
+    }
 
 	public Bitmap getBitmap() {
 		if (mBitmap.isRecycled()) {
@@ -101,5 +98,4 @@ public class PictureItem extends FileItem implements Parcelable {
 	public void setBitmap(Bitmap bitmap) {
 		mBitmap = bitmap;
 	}
-
 }

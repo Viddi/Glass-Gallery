@@ -10,7 +10,7 @@ We're working on recreating the standard Android Gallery app (along with most of
 ## Current Features
 
 - View Pictures
-- View Videos (partially working/in progress)
+- View Videos
  
 ## Future Features
 
