@@ -17,6 +17,7 @@ import android.widget.VideoView;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
+import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 
@@ -116,8 +117,8 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	}
 
 	private void showMenu() {
-		Intent intent = new Intent(this, VideoMenuActivity.class);
-        intent.putExtra(VideoItem.KEY_FOR_INTENT_EXTRA, mVideo);
+		Intent intent = new Intent(this, OptionsMenuActivity.class);
+        intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA_VIDEO, mVideo);
 		startActivity(intent);
 	}
 }
