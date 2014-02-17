@@ -7,6 +7,8 @@
     <string name="share">Share with..</string>
     <string name="details">Details</string>
     <string name="delete">Delete</string>
+    <string name="deleting">Deleting</string>
+    <string name="deleted">Deleted</string>
     <string name="g_plus">Google+</string>
     <string name="email">Email</string>
     <string name="twitter">Twitter</string>

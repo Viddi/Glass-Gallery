@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/delete_layoutDeleting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <ImageView
+                    android:layout_width="55px"
+                    android:layout_height="55px"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_delete"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:text="@string/deleting"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/delete_layoutDeleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:visibility="gone">
+
+        <ImageView
+                android:layout_width="55px"
+                android:layout_height="55px"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_done"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:text="@string/deleted"/>
+
+    </LinearLayout>
+
+    <is.vidarottosson.glass.gallery.widget.SliderView
+            android:id="@+id/delete_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
