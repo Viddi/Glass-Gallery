@@ -6,8 +6,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+import com.google.glass.widget.SliderView;
 import is.vidarottosson.glass.gallery.models.FileItem;
-import is.vidarottosson.glass.gallery.widget.SliderView;
 
 public class DeleteActivity extends Activity {
 

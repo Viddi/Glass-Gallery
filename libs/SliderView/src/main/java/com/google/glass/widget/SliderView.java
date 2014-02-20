@@ -1,7 +1,8 @@
-package is.vidarottosson.glass.gallery.widget;
+package com.google.glass.widget;
 
 //  Created by Viddi on 2/15/14.
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.content.Context;
@@ -12,9 +13,11 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import is.vidarottosson.glass.gallery.R;
 
 public class SliderView extends FrameLayout {
+
+    public static final String TAG = SliderView.class.getSimpleName();
+
 	private static final long HIDE_SLIDER_TIMEOUT_MILLIS = 1000L;
 	private static final int MIN_SLIDER_WIDTH_PX = 40;
 	private static final long SHOW_HIDE_ANIMATION_DURATION_MILLIS = 300L;
@@ -44,7 +47,7 @@ public class SliderView extends FrameLayout {
 
 	public SliderView(Context paramContext, AttributeSet paramAttributeSet, int paramInt) {
 		super(paramContext, paramAttributeSet, paramInt);
-		LayoutInflater.from(getContext()).inflate(R.layout.view_slider, this);
+		LayoutInflater.from(getContext()).inflate(R.layout.slider, this);
 		this.slider = findViewById(R.id.slider_control);
 		this.indeterminateSlider = ((ImageView) findViewById(R.id.indeterminate_slider));
 		hideSlider(false);
@@ -203,11 +206,11 @@ public class SliderView extends FrameLayout {
 		((AnimationDrawable) this.indeterminateSlider.getBackground()).start();
 	}
 
-	public void startProgress(long paramLong) {
-		startProgress(paramLong, new AccelerateDecelerateInterpolator());
-	}
+    public void startProgress(long paramLong) {
+        startProgress(paramLong, new AccelerateDecelerateInterpolator());
+    }
 
-	public void startProgress(long paramLong, TimeInterpolator paramTimeInterpolator) {
+	private void startProgress(long paramLong, TimeInterpolator paramTimeInterpolator) {
 		hideIndeterminateSlider(true);
 		showSlider(false);
 		int i = getResources().getDisplayMetrics().widthPixels;
@@ -215,7 +218,31 @@ public class SliderView extends FrameLayout {
 		localLayoutParams.width = i;
 		localLayoutParams.setMargins(-i, 0, 0, 0);
 		this.slider.setLayoutParams(localLayoutParams);
-		this.slider.animate().translationX(i).setDuration(paramLong).setInterpolator(paramTimeInterpolator);
+
+        if(mOnAnimateListener != null) {
+            this.slider.animate().translationX(i).setDuration(paramLong).setInterpolator(paramTimeInterpolator).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    mOnAnimateListener.onAnimateFinishedListener();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+                    mOnAnimateListener.onAnimateCancelledListener();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+                }
+            });
+        }
+        else {
+            this.slider.animate().translationX(i).setDuration(paramLong).setInterpolator(paramTimeInterpolator);
+        }
 	}
 
 	public void stopIndeterminate() {
@@ -223,4 +250,14 @@ public class SliderView extends FrameLayout {
 		((AnimationDrawable) this.indeterminateSlider.getBackground()).stop();
 		hideIndeterminateSlider(true);
 	}
+
+    public interface OnAnimateListener {
+        public void onAnimateFinishedListener();
+        public void onAnimateCancelledListener();
+    }
+    private OnAnimateListener mOnAnimateListener;
+
+    public void setOnAnimateListener(OnAnimateListener onAnimateListener) {
+        mOnAnimateListener = onAnimateListener;
+    }
 }
