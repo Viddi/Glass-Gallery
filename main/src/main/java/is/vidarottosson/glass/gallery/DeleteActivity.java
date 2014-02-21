@@ -5,14 +5,15 @@ package is.vidarottosson.glass.gallery;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.glass.media.Sounds;
 import com.google.glass.widget.SliderView;
-
 import is.vidarottosson.glass.gallery.models.FileItem;
 
 public class DeleteActivity extends Activity implements SliderView.OnAnimateListener {
@@ -35,6 +36,11 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 
 		mDeletingLayout = (LinearLayout) findViewById(R.id.delete_layoutDeleting);
 		mDeletedLayout = (LinearLayout) findViewById(R.id.delete_layoutDeleted);
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto-Thin.ttf");
+
+        ((TextView) findViewById(R.id.delete_txtDeleting)).setTypeface(typeface);
+        ((TextView) findViewById(R.id.delete_txtDeleted)).setTypeface(typeface);
 
 		mSliderView = (SliderView) findViewById(R.id.delete_progressBar);
 
