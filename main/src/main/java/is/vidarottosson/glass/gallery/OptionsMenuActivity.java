@@ -23,6 +23,7 @@ public class OptionsMenuActivity extends Activity {
     public static final int INTENT_DELETE = 302;
 
     private FileItem mFileItem;
+    private boolean isWaiting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +66,19 @@ public class OptionsMenuActivity extends Activity {
                 Intent deleteIntent = new Intent(this, DeleteActivity.class);
                 deleteIntent.putExtra(DeleteActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
                 startActivityForResult(deleteIntent, INTENT_DELETE);
+                isWaiting = true;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onOptionsMenuClosed(Menu menu) {
+        if (!isWaiting) {
+            finish();
+        }
+        isWaiting = false;
     }
 
     @Override

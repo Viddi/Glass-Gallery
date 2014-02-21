@@ -3,11 +3,14 @@ package is.vidarottosson.glass.gallery.pics;
 //  Created by Viddi on 12/6/13.
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardScrollView;
@@ -103,6 +106,9 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
     @Override
     public boolean onGesture(Gesture gesture) {
         if(gesture == Gesture.LONG_PRESS || gesture == Gesture.TAP) {
+            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            audio.playSoundEffect(Sounds.TAP);
+
             mPosition = mView.getSelectedItemPosition();
             PictureItem picture = mAdapter.getItem(mPosition);
 
