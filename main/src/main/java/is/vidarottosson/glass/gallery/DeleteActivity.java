@@ -5,10 +5,10 @@ package is.vidarottosson.glass.gallery;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.google.glass.widget.SliderView;
-
 import is.vidarottosson.glass.gallery.models.FileItem;
 
 public class DeleteActivity extends Activity implements SliderView.OnAnimateListener {
@@ -16,6 +16,8 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 	public static final String TAG = DeleteActivity.class.getSimpleName();
 
     public static final String KEY_INTENT_EXTRA_PATH = "filePath";
+    public static final int PROGRESS_SECONDS = 2000;
+    public static final int WAIT_SECONDS = 500;
 
 	private LinearLayout mDeletingLayout, mDeletedLayout;
 	private SliderView mSliderView;
@@ -39,39 +41,38 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 		}
 
         mSliderView.setOnAnimateListener(this);
-        mSliderView.startProgress(2500);
+        mSliderView.startProgress(PROGRESS_SECONDS);
 
 	}
 
     @Override
     public void onAnimateFinishedListener() {
-//        if(mFileItem.deleteItem()) {
-//            mDeletingLayout.setVisibility(View.GONE);
-//            mDeletedLayout.setVisibility(View.VISIBLE);
-//
-//            // TODO: Play sound
-//
-//            try {
-//                Thread.sleep(1500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            setResult(RESULT_OK);
-//            finish();
-//        }
-//        else {
-//
-//
-//            try {
-//                Thread.sleep(1500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            setResult(RESULT_CANCELED);
-//            finish();
-//        }
+        if(mFileItem.deleteItem()) {
+            mDeletingLayout.setVisibility(View.GONE);
+            mDeletedLayout.setVisibility(View.VISIBLE);
+
+            // TODO: Play sound
+
+            try {
+                Thread.sleep(WAIT_SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            setResult(RESULT_OK);
+            finish();
+        }
+        else {
+
+            try {
+                Thread.sleep(WAIT_SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            setResult(RESULT_CANCELED);
+            finish();
+        }
     }
 
     @Override

@@ -4,7 +4,6 @@ package is.vidarottosson.glass.gallery;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -73,12 +72,8 @@ public class OptionsMenuActivity extends Activity {
     }
 
     @Override
-    public void onOptionsMenuClosed(Menu menu) {
-        finish();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == INTENT_DELETE && resultCode == RESULT_OK) {
             setResult(RESULT_DELETED);
             finish();
