@@ -5,6 +5,8 @@ package is.vidarottosson.glass.gallery.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.File;
+
 public class VideoItem extends FileItem implements Parcelable {
 
 	public static final String EXTENSION_MP4 = ".mp4";
@@ -21,8 +23,8 @@ public class VideoItem extends FileItem implements Parcelable {
 	//    | |__| (_) | | | \__ \ |_| |  | |_| | (__| || (_) | |  \__ \
 	//     \____\___/|_| |_|___/\__|_|   \__,_|\___|\__\___/|_|  |___/
 
-	public VideoItem(String path, String name) {
-		super(Type.VIDEO, path, name);
+	public VideoItem(File file) {
+		super(file);
 	}
 
 	//     ____                    _       _     _
@@ -53,6 +55,6 @@ public class VideoItem extends FileItem implements Parcelable {
 	};
 
 	private VideoItem(Parcel in) {
-		super(Type.VIDEO, in.readString(), in.readString());
+		super(in.readString());
 	}
 }

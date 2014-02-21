@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.io.File;
+
 import is.vidarottosson.glass.gallery.R;
 
 public class PictureItem extends FileItem implements Parcelable {
@@ -50,11 +52,11 @@ public class PictureItem extends FileItem implements Parcelable {
     };
 
     private PictureItem(Parcel in) {
-        super(Type.PICTURE, in.readString(), in.readString());
+        super(in.readString());
     }
 
-	public PictureItem(String path, String name) {
-		super(Type.PICTURE, path, name);
+	public PictureItem(File file) {
+		super(file);
 	}
 
 	public void createBitmap(Context context) {

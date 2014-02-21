@@ -4,6 +4,8 @@ package is.vidarottosson.glass.gallery.models;
 
 import java.io.File;
 
+import is.vidarottosson.glass.gallery.util.Utility;
+
 public class FileItem {
 
 	public enum Type {
@@ -15,11 +17,21 @@ public class FileItem {
 	private String mName;
 	private String mExtension;
 
-	public FileItem(Type fileType, String path, String name) {
-		this.mFileType = fileType;
-		this.mPath = path;
-		this.mName = name;
-		setExtension(name);
+    public FileItem(String filePath) {
+        this(new File(filePath));
+    }
+
+	public FileItem(File file) {
+        if(Utility.isImage(file.getAbsolutePath())) {
+            mFileType = Type.PICTURE;
+        }
+        else if(Utility.isVideo(file.getAbsolutePath())) {
+            mFileType = Type.VIDEO;
+        }
+
+		this.mPath = file.getAbsolutePath();
+		this.mName = file.getName();
+		setExtension(file.getName());
 	}
 
 	public String getPath() {

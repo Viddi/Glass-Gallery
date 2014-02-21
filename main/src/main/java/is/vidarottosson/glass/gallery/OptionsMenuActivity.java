@@ -4,6 +4,7 @@ package is.vidarottosson.glass.gallery;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -63,7 +64,7 @@ public class OptionsMenuActivity extends Activity {
                 return true;
             case R.id.delete:
                 Intent deleteIntent = new Intent(this, DeleteActivity.class);
-                deleteIntent.putExtra(mFileItem.getPath(), DeleteActivity.KEY_INTENT_EXTRA_PATH);
+                deleteIntent.putExtra(DeleteActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
                 startActivityForResult(deleteIntent, INTENT_DELETE);
                 return true;
             default:

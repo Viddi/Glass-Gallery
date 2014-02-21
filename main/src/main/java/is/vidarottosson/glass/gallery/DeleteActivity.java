@@ -35,7 +35,7 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
         Intent intent = getIntent();
 		if (intent.getExtras() != null) {
             String filePath = intent.getExtras().getString(KEY_INTENT_EXTRA_PATH);
-            mFileItem.setPath(filePath);
+            mFileItem = new FileItem(filePath);
 		}
 
         mSliderView.setOnAnimateListener(this);

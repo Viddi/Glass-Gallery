@@ -4,12 +4,8 @@ package is.vidarottosson.glass.gallery.video;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.google.android.glass.touchpad.Gesture;
@@ -96,7 +92,7 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 
 		for (File file : files) {
 			if (Utility.isVideo(file.getName())) {
-				VideoItem item = new VideoItem(file.getAbsolutePath(), file.getName());
+				VideoItem item = new VideoItem(file);
 
 				pathList.add(item);
 				Log.i(TAG, "Added a video: " + file.getAbsoluteFile());

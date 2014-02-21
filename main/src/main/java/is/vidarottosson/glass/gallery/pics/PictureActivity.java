@@ -19,7 +19,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import is.vidarottosson.glass.gallery.OptionsMenuActivity;
-import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.Utility;
 
@@ -88,8 +87,7 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
 		for (File file : files) {
 
 			if (Utility.isImage(file.getName())) {
-				PictureItem item = new PictureItem(file.getAbsolutePath(), file.getName());
-				item.setFileType(FileItem.Type.PICTURE);
+				PictureItem item = new PictureItem(file);
 
 				pathList.add(item);
 				Log.i(TAG, "Added an image: " + file.getAbsolutePath());
