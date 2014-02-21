@@ -50,7 +50,7 @@
 
     </LinearLayout>
 
-    <is.vidarottosson.glass.gallery.widget.SliderView
+    <com.google.glass.widget.SliderView
             android:id="@+id/delete_progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"

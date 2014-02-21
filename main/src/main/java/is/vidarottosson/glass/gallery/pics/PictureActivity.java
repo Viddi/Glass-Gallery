@@ -126,7 +126,7 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == OptionsMenuActivity.RESULT_DELETED && requestCode == INTENT_OPTIONS_MENU) {
+        if (requestCode == INTENT_OPTIONS_MENU && resultCode == OptionsMenuActivity.RESULT_DELETED) {
             mPictureItems.remove(mPosition);
             mAdapter.notifyDataSetChanged();
         }

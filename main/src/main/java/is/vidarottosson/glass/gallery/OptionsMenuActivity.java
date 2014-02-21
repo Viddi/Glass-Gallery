@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.models.VideoItem;
@@ -19,6 +20,7 @@ public class OptionsMenuActivity extends Activity {
     public static final String KEY_INTENT_EXTRA_VIDEO = "videoItem";
 
     public static final int RESULT_DELETED = 301;
+    public static final int INTENT_DELETE = 302;
 
     private FileItem mFileItem;
 
@@ -60,14 +62,9 @@ public class OptionsMenuActivity extends Activity {
                 // TODO: show various details
                 return true;
             case R.id.delete:
-                // TODO: delete file
                 Intent deleteIntent = new Intent(this, DeleteActivity.class);
-                startActivity(deleteIntent);
-
-//                if(mFileItem.deleteItem()) {
-//                    setResult(RESULT_DELETED);
-//                    finish();
-//                }
+                deleteIntent.putExtra(mFileItem.getPath(), DeleteActivity.KEY_INTENT_EXTRA_PATH);
+                startActivityForResult(deleteIntent, INTENT_DELETE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -77,5 +74,13 @@ public class OptionsMenuActivity extends Activity {
     @Override
     public void onOptionsMenuClosed(Menu menu) {
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == INTENT_DELETE && resultCode == RESULT_OK) {
+            setResult(RESULT_DELETED);
+            finish();
+        }
     }
 }

@@ -56,9 +56,13 @@ public class FileItem {
 	}
 
 	public boolean deleteItem() {
-		File file = new File(mPath);
+        if(mPath != null) {
+            File file = new File(mPath);
 
-		return file.delete();
+            return file.delete();
+        }
+
+        return false;
 	}
 
 	@Override
