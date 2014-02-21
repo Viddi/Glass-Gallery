@@ -3,12 +3,16 @@ package is.vidarottosson.glass.gallery;
 //  Created by Viddi on 2/15/14.
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.android.glass.media.Sounds;
 import com.google.glass.widget.SliderView;
+
 import is.vidarottosson.glass.gallery.models.FileItem;
 
 public class DeleteActivity extends Activity implements SliderView.OnAnimateListener {
@@ -17,7 +21,7 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 
     public static final String KEY_INTENT_EXTRA_PATH = "filePath";
     public static final int PROGRESS_SECONDS = 2000;
-    public static final int WAIT_SECONDS = 500;
+    public static final int WAIT_SECONDS = 250;
 
 	private LinearLayout mDeletingLayout, mDeletedLayout;
 	private SliderView mSliderView;
@@ -51,7 +55,8 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
             mDeletingLayout.setVisibility(View.GONE);
             mDeletedLayout.setVisibility(View.VISIBLE);
 
-            // TODO: Play sound
+            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            audio.playSoundEffect(Sounds.SUCCESS);
 
             try {
                 Thread.sleep(WAIT_SECONDS);
@@ -63,6 +68,8 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
             finish();
         }
         else {
+            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            audio.playSoundEffect(Sounds.ERROR);
 
             try {
                 Thread.sleep(WAIT_SECONDS);
