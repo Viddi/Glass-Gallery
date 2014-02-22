@@ -41,8 +41,8 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto-Thin.ttf");
 
-		((TextView) findViewById(R.id.delete_txtDeleting)).setTypeface(typeface);
-		((TextView) findViewById(R.id.delete_txtDeleted)).setTypeface(typeface);
+		((TextView) findViewById(R.id.delete_tvDeleting)).setTypeface(typeface);
+		((TextView) findViewById(R.id.delete_tvDeleted)).setTypeface(typeface);
 
 		mSliderView = (SliderView) findViewById(R.id.delete_progressBar);
 

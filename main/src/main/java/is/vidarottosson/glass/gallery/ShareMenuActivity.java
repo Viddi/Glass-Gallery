@@ -35,11 +35,8 @@ public class ShareMenuActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.share:
-				// TODO: open an option to share?
-				return true;
-			case R.id.delete:
-				// TODO: delete that video
+			case R.id.g_plus:
+
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

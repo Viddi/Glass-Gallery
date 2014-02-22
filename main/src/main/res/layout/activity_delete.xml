@@ -20,7 +20,7 @@
                     android:src="@drawable/ic_delete"/>
 
             <TextView
-                    android:id="@+id/delete_txtDeleting"
+                    android:id="@+id/delete_tvDeleting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="60px"
@@ -44,7 +44,7 @@
                 android:src="@drawable/ic_done"/>
 
         <TextView
-                android:id="@+id/delete_txtDeleted"
+                android:id="@+id/delete_tvDeleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="60px"

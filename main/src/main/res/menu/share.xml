@@ -5,13 +5,13 @@
             android:id="@+id/g_plus"
             android:title="@string/g_plus"/>
 
-    <item
-            android:id="@+id/email"
-            android:title="@string/email"/>
-    <item
-            android:id="@+id/twitter"
-            android:title="@string/twitter"/>
-    <item
-            android:id="@+id/facebook"
-            android:title="@string/facebook"/>
+    <!--<item-->
+            <!--android:id="@+id/email"-->
+            <!--android:title="@string/email"/>-->
+    <!--<item-->
+            <!--android:id="@+id/twitter"-->
+            <!--android:title="@string/twitter"/>-->
+    <!--<item-->
+            <!--android:id="@+id/facebook"-->
+            <!--android:title="@string/facebook"/>-->
 </menu>

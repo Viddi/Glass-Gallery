@@ -62,7 +62,10 @@ public class OptionsMenuActivity extends Activity {
                 isWaiting = true;
                 return true;
             case R.id.details:
-                // TODO: show various details
+                Intent detailsIntent = new Intent(this, DetailsActivity.class);
+                detailsIntent.putExtra(DetailsActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
+                startActivity(detailsIntent);
+                isWaiting = true;
                 return true;
             case R.id.delete:
                 Intent deleteIntent = new Intent(this, DeleteActivity.class);
