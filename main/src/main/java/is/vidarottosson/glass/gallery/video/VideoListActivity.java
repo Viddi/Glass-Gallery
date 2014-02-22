@@ -18,15 +18,21 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 import is.vidarottosson.glass.gallery.util.Utility;
 
 public class VideoListActivity extends Activity implements GestureDetector.BaseListener {
 	public static final String TAG = VideoListActivity.class.getSimpleName();
 
+    public static final int INTENT_VIDEO_ACTIVITY = 401;
+
 	private CardScrollView mView;
 	private VideoScrollAdapter mAdapter;
 	private GestureDetector mDetector;
+
+    private List<VideoItem> mVideoItems;
+    private int mPosition;
 
 	//     _     _  __                      _
 	//    | |   (_)/ _| ___  ___ _   _  ___| | ___
@@ -39,7 +45,9 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mAdapter = new VideoScrollAdapter(this, queryVideos());
+        mVideoItems = queryVideos();
+
+		mAdapter = new VideoScrollAdapter(this, mVideoItems);
 		mView = new CardScrollView(this);
 		mView.setAdapter(mAdapter);
 
@@ -59,7 +67,17 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 		mView.deactivate();
 	}
 
-	//     ____       _            _         __  __      _   _               _
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == INTENT_VIDEO_ACTIVITY && resultCode == OptionsMenuActivity.RESULT_DELETED) {
+            mVideoItems.remove(mPosition);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    //     ____       _            _         __  __      _   _               _
 	//    |  _ \ _ __(_)_   ____ _| |_ ___  |  \/  | ___| |_| |__   ___   __| |___
 	//    | |_) | '__| \ \ / / _` | __/ _ \ | |\/| |/ _ \ __| '_ \ / _ \ / _` / __|
 	//    |  __/| |  | |\ V / (_| | ||  __/ | |  | |  __/ |_| | | | (_) | (_| \__ \
@@ -113,12 +131,12 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 	public boolean onGesture(Gesture gesture) {
         Log.i(TAG, "the gesture is: " + gesture);
 		if (gesture == Gesture.TAP || gesture == Gesture.LONG_PRESS) {
-			int position = mView.getSelectedItemPosition();
-			VideoItem video = mAdapter.getItem(position);
+			mPosition = mView.getSelectedItemPosition();
+			VideoItem video = mAdapter.getItem(mPosition);
 
 			Intent intent = new Intent(this, VideoActivity.class);
 			intent.putExtra(VideoItem.KEY_FOR_INTENT_EXTRA, video);
-			startActivity(intent);
+            startActivityForResult(intent, INTENT_VIDEO_ACTIVITY);
 		}
 
 		return false;

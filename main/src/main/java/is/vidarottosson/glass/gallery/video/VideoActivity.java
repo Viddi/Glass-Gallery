@@ -26,6 +26,8 @@ import is.vidarottosson.glass.gallery.models.VideoItem;
 public class VideoActivity extends Activity implements GestureDetector.BaseListener {
 	public static final String TAG = VideoActivity.class.getSimpleName();
 
+    public static final int INTENT_OPTIONS_MENU = 101;
+
 	private VideoItem mVideo;
 
 	private VideoView mVideoView;
@@ -74,24 +76,11 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	}
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        Log.i(TAG, "onrestore");
-
-        if (mVideo == null) {
-            finish();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Log.i(TAG, "onresume: " + mVideo);
-
-        File file = new File(mVideo.getPath());
-        if (!file.exists()) {
+        if (requestCode == INTENT_OPTIONS_MENU && resultCode == OptionsMenuActivity.RESULT_DELETED) {
+            setResult(OptionsMenuActivity.RESULT_DELETED);
             finish();
         }
     }
@@ -142,6 +131,6 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	private void showMenu() {
 		Intent intent = new Intent(this, OptionsMenuActivity.class);
         intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA_VIDEO, mVideo);
-		startActivity(intent);
+		startActivityForResult(intent, INTENT_OPTIONS_MENU);
 	}
 }
