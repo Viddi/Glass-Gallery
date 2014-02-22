@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 	private SliderView mSliderView;
 
 	private FileItem mFileItem;
+    private boolean isAnimating = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +54,29 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 
         mSliderView.setOnAnimateListener(this);
         mSliderView.startProgress(PROGRESS_SECONDS);
-
 	}
 
     @Override
+    public boolean onKeyDown(int keycode, KeyEvent event) {
+        if (keycode == KeyEvent.KEYCODE_BACK) {
+            isAnimating = false;
+
+            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            audio.playSoundEffect(Sounds.DISMISSED);
+            mSliderView.stopProgress();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public void onAnimateFinishedListener() {
+        if(!isAnimating) {
+            return;
+        }
+
         if(mFileItem.deleteItem()) {
             mDeletingLayout.setVisibility(View.GONE);
             mDeletedLayout.setVisibility(View.VISIBLE);
@@ -64,11 +84,7 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
             AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audio.playSoundEffect(Sounds.SUCCESS);
 
-            try {
-                Thread.sleep(WAIT_SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleep(WAIT_SECONDS);
 
             setResult(RESULT_OK);
             finish();
@@ -77,11 +93,7 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
             AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audio.playSoundEffect(Sounds.ERROR);
 
-            try {
-                Thread.sleep(WAIT_SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleep(WAIT_SECONDS);
 
             setResult(RESULT_CANCELED);
             finish();
@@ -92,6 +104,14 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
     public void onAnimateCancelledListener() {
         setResult(RESULT_CANCELED);
         finish();
+    }
+
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

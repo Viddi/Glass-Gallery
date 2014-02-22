@@ -58,6 +58,7 @@ public class OptionsMenuActivity extends Activity {
             case R.id.share:
                 Intent i = new Intent(this, ShareMenuActivity.class);
                 startActivity(i);
+                isWaiting = true;
                 return true;
             case R.id.details:
                 // TODO: show various details
