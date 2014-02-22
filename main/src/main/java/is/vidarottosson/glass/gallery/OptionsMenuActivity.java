@@ -1,4 +1,5 @@
 package is.vidarottosson.glass.gallery;
+
 //  Created by Viddi on 2/14/14.
 
 import android.app.Activity;
@@ -14,79 +15,78 @@ import is.vidarottosson.glass.gallery.models.VideoItem;
 
 public class OptionsMenuActivity extends Activity {
 
-    public static final String TAG = OptionsMenuActivity.class.getSimpleName();
-    
-    public static final String KEY_INTENT_EXTRA_PICTURE = "pictureItem";
-    public static final String KEY_INTENT_EXTRA_VIDEO = "videoItem";
+	public static final String TAG = OptionsMenuActivity.class.getSimpleName();
 
-    public static final int RESULT_DELETED = 301;
-    public static final int INTENT_DELETE = 302;
+	public static final String KEY_INTENT_EXTRA_PICTURE = "pictureItem";
+	public static final String KEY_INTENT_EXTRA_VIDEO = "videoItem";
 
-    private FileItem mFileItem;
-    private boolean isWaiting = false;
+	public static final int RESULT_DELETED = 301;
+	public static final int INTENT_DELETE = 302;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	private FileItem mFileItem;
+	private boolean isWaiting = false;
 
-        Bundle bundle = getIntent().getExtras();
-        if(bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE) != null) {
-            mFileItem = (PictureItem) bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE);
-        }
-        else if(bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO) != null) {
-            mFileItem = (VideoItem) bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO);
-        }
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        openOptionsMenu();
-    }
+		Bundle bundle = getIntent().getExtras();
+		if (bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE) != null) {
+			mFileItem = (PictureItem) bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE);
+		} else if (bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO) != null) {
+			mFileItem = (VideoItem) bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO);
+		}
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options, menu);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		openOptionsMenu();
+	}
 
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options, menu);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.share:
-                Intent i = new Intent(this, ShareMenuActivity.class);
-                startActivity(i);
-                return true;
-            case R.id.details:
-                // TODO: show various details
-                return true;
-            case R.id.delete:
-                Intent deleteIntent = new Intent(this, DeleteActivity.class);
-                deleteIntent.putExtra(DeleteActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
-                startActivityForResult(deleteIntent, INTENT_DELETE);
-                isWaiting = true;
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+		return true;
+	}
 
-    @Override
-    public void onOptionsMenuClosed(Menu menu) {
-        if (!isWaiting) {
-            finish();
-        }
-        isWaiting = false;
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.share:
+				Intent i = new Intent(this, ShareMenuActivity.class);
+				startActivity(i);
+				return true;
+			case R.id.details:
+				// TODO: show various details
+				return true;
+			case R.id.delete:
+				Intent deleteIntent = new Intent(this, DeleteActivity.class);
+				deleteIntent.putExtra(DeleteActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
+				startActivityForResult(deleteIntent, INTENT_DELETE);
+				isWaiting = true;
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == INTENT_DELETE && resultCode == RESULT_OK) {
-            setResult(RESULT_DELETED);
-            finish();
-        }
-    }
+	@Override
+	public void onOptionsMenuClosed(Menu menu) {
+		if (!isWaiting) {
+			finish();
+		}
+		isWaiting = false;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == INTENT_DELETE && resultCode == RESULT_OK) {
+			setResult(RESULT_DELETED);
+			finish();
+		}
+	}
 }

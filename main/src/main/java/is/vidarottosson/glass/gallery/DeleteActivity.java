@@ -20,9 +20,9 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 
 	public static final String TAG = DeleteActivity.class.getSimpleName();
 
-    public static final String KEY_INTENT_EXTRA_PATH = "filePath";
-    public static final int PROGRESS_SECONDS = 2000;
-    public static final int WAIT_SECONDS = 250;
+	public static final String KEY_INTENT_EXTRA_PATH = "filePath";
+	public static final int PROGRESS_SECONDS = 2000;
+	public static final int WAIT_SECONDS = 250;
 
 	private LinearLayout mDeletingLayout, mDeletedLayout;
 	private SliderView mSliderView;
@@ -37,61 +37,61 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 		mDeletingLayout = (LinearLayout) findViewById(R.id.delete_layoutDeleting);
 		mDeletedLayout = (LinearLayout) findViewById(R.id.delete_layoutDeleted);
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto-Thin.ttf");
+		Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto-Thin.ttf");
 
-        ((TextView) findViewById(R.id.delete_txtDeleting)).setTypeface(typeface);
-        ((TextView) findViewById(R.id.delete_txtDeleted)).setTypeface(typeface);
+		((TextView) findViewById(R.id.delete_txtDeleting)).setTypeface(typeface);
+		((TextView) findViewById(R.id.delete_txtDeleted)).setTypeface(typeface);
 
 		mSliderView = (SliderView) findViewById(R.id.delete_progressBar);
 
-        Intent intent = getIntent();
+		Intent intent = getIntent();
 		if (intent.getExtras() != null) {
-            String filePath = intent.getExtras().getString(KEY_INTENT_EXTRA_PATH);
-            mFileItem = new FileItem(filePath);
+			String filePath = intent.getExtras().getString(KEY_INTENT_EXTRA_PATH);
+			mFileItem = new FileItem(filePath);
 		}
 
-        mSliderView.setOnAnimateListener(this);
-        mSliderView.startProgress(PROGRESS_SECONDS);
+		mSliderView.setOnAnimateListener(this);
+		mSliderView.startProgress(PROGRESS_SECONDS);
 
 	}
 
-    @Override
-    public void onAnimateFinishedListener() {
-        if(mFileItem.deleteItem()) {
-            mDeletingLayout.setVisibility(View.GONE);
-            mDeletedLayout.setVisibility(View.VISIBLE);
+	@Override
+	public void onAnimateFinishedListener() {
+		if (mFileItem.deleteItem()) {
+			mDeletingLayout.setVisibility(View.GONE);
+			mDeletedLayout.setVisibility(View.VISIBLE);
 
-            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            audio.playSoundEffect(Sounds.SUCCESS);
+			AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+			audio.playSoundEffect(Sounds.SUCCESS);
 
-            try {
-                Thread.sleep(WAIT_SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+			try {
+				Thread.sleep(WAIT_SECONDS);
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
-            setResult(RESULT_OK);
-            finish();
-        }
-        else {
-            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            audio.playSoundEffect(Sounds.ERROR);
+			setResult(RESULT_OK);
+		} else {
+			AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+			audio.playSoundEffect(Sounds.ERROR);
 
-            try {
-                Thread.sleep(WAIT_SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+			try {
+				Thread.sleep(WAIT_SECONDS);
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
-            setResult(RESULT_CANCELED);
-            finish();
-        }
-    }
+			setResult(RESULT_CANCELED);
+		}
 
-    @Override
-    public void onAnimateCancelledListener() {
-        setResult(RESULT_CANCELED);
-        finish();
-    }
+		finish();
+	}
 
+	@Override
+	public void onAnimateCancelledListener() {
+		setResult(RESULT_CANCELED);
+		finish();
+	}
 }

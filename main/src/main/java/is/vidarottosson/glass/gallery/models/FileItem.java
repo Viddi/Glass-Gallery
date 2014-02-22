@@ -68,7 +68,7 @@ public class FileItem {
 	}
 
 	public boolean deleteItem() {
-        if(mPath != null) {
+        if (mPath != null) {
             File file = new File(mPath);
 
             return file.delete();

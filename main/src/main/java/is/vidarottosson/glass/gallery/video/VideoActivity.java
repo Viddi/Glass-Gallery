@@ -27,8 +27,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	private VideoItem mVideo;
 
 	private VideoView mVideoView;
-	private TextView mTxtView;
-	private ProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
 
 	private GestureDetector mDetector;
 
@@ -56,8 +55,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mVideoView = (VideoView) findViewById(R.id.video_videoView);
 		mVideoView.setVideoPath(mVideo.getPath());
 
-		mTxtView = (TextView) findViewById(R.id.video_textView);
-		mTxtView.setText(mVideo.getName());
+        ((TextView) findViewById(R.id.video_textView)).setText(mVideo.getName());
 
 		mProgressBar = (ProgressBar) findViewById(R.id.video_progressBar);
 		// FIXME: ^^ is this animating by default?
@@ -73,7 +71,29 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mDetector = new GestureDetector(this).setBaseListener(this);
 	}
 
-	//     ___       _             __                  ___                 _                           _        _   _
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        Log.i(TAG, "onrestore");
+
+        if (mVideo == null) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.i(TAG, "onresume: " + mVideo);
+
+        if (mVideo.getPath() == null) {
+            finish();
+        }
+    }
+
+    //     ___       _             __                  ___                 _                           _        _   _
 	//    |_ _|_ __ | |_ ___ _ __ / _| __ _  ___ ___  |_ _|_ __ ___  _ __ | | ___ _ __ ___   ___ _ __ | |_ __ _| |_(_) ___  _ __  ___
 	//     | || '_ \| __/ _ \ '__| |_ / _` |/ __/ _ \  | || '_ ` _ \| '_ \| |/ _ \ '_ ` _ \ / _ \ '_ \| __/ _` | __| |/ _ \| '_ \/ __|
 	//     | || | | | ||  __/ |  |  _| (_| | (_|  __/  | || | | | | | |_) | |  __/ | | | | |  __/ | | | || (_| | |_| | (_) | | | \__ \
