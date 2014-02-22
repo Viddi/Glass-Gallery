@@ -18,10 +18,11 @@ public class MenuActivity extends Activity {
 	public static final int INTENT_PICTURES = 100;
 	public static final int INTENT_VIDEOS = 200;
 
+    private boolean isWaiting = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override
@@ -44,10 +45,12 @@ public class MenuActivity extends Activity {
 			case R.id.pictures:
 				Intent picIntent = new Intent(this, PictureActivity.class);
 				startActivityForResult(picIntent, INTENT_PICTURES);
+                isWaiting = true;
 				return true;
 			case R.id.videos:
 				Intent videoIntent = new Intent(this, VideoListActivity.class);
 				startActivityForResult(videoIntent, INTENT_VIDEOS);
+                isWaiting = true;
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -56,7 +59,10 @@ public class MenuActivity extends Activity {
 
 	@Override
 	public void onOptionsMenuClosed(Menu menu) {
-		finish();
+        if (!isWaiting) {
+            finish();
+        }
+        isWaiting = false;
 	}
 
 	@Override
