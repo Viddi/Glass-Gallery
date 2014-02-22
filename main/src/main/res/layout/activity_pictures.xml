@@ -14,16 +14,6 @@
                android:src="@drawable/dummy"
                android:layout_centerHorizontal="true"/>
 
-    <TextView
-            android:id="@+id/pictures_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@android:color/white"
-            android:layout_alignBottom="@+id/pictures_imageView"
-            android:text="Dummy Picture"/>
-
     <ProgressBar
             android:id="@+id/pictures_progressBar"
             android:layout_width="wrap_content"

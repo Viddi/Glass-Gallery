@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 
@@ -59,7 +58,6 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 
             holder = new ViewHolder();
             holder.imgPicture = (ImageView) view.findViewById(R.id.pictures_imageView);
-            holder.txtName = (TextView) view.findViewById(R.id.pictures_textView);
             holder.progressBar = (ProgressBar) view.findViewById(R.id.pictures_progressBar);
 
             view.setTag(holder);
@@ -72,10 +70,9 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 
         if(picture.isLoaded()) {
             holder.imgPicture.setImageBitmap(picture.getBitmap());
-            holder.txtName.setText(picture.getName());
         }
         else {
-            AsyncBitmapLoader loader = new AsyncBitmapLoader(mContext, holder.progressBar, holder.imgPicture, holder.txtName, picture);
+            AsyncBitmapLoader loader = new AsyncBitmapLoader(mContext, holder.progressBar, holder.imgPicture, picture);
             loader.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
 
             mBitmapLoaders.add(loader);
@@ -102,7 +99,6 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 
     static class ViewHolder {
         ImageView imgPicture;
-        TextView txtName;
         ProgressBar progressBar;
     }
 
