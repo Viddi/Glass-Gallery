@@ -11,8 +11,9 @@ We're working on recreating the standard Android Gallery app (along with most of
 
 - View Pictures
 - View Videos
+- Delete Pictures and Videos
+- View details for Pictures and Videos (title, date captured, file format, and size)
  
 ## Future Features
 
-- Media information for both Pictures and Videos.
-- Option to share any media file
+- Option to share any media file (this is currently hindered by the GDK, so as soon as this is updated, we will include this functionality)
