@@ -56,11 +56,11 @@ public class OptionsMenuActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.share:
-                Intent i = new Intent(this, ShareMenuActivity.class);
-                startActivity(i);
-                isWaiting = true;
-                return true;
+//            case R.id.share:
+//                Intent i = new Intent(this, ShareMenuActivity.class);
+//                startActivity(i);
+//                isWaiting = true;
+//                return true;
             case R.id.details:
                 Intent detailsIntent = new Intent(this, DetailsActivity.class);
                 detailsIntent.putExtra(DetailsActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
