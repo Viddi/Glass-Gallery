@@ -17,6 +17,8 @@ import android.widget.VideoView;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
+import java.io.File;
+
 import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
@@ -88,7 +90,8 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 
         Log.i(TAG, "onresume: " + mVideo);
 
-        if (mVideo.getPath() == null) {
+        File file = new File(mVideo.getPath());
+        if (!file.exists()) {
             finish();
         }
     }
