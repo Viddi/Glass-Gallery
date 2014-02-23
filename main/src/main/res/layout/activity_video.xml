@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerInParent="true"/>
 
     <TextView
             android:id="@+id/video_textView"
@@ -24,12 +24,11 @@
             android:layout_alignParentRight="true"
             android:text="Dummy Picture"/>
 
-    <ProgressBar
-            android:id="@+id/video_progressBar"
+    <ImageView
+            android:id="@+id/video_imgView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:layout_centerInParent="true"
+            />
 
 </RelativeLayout>

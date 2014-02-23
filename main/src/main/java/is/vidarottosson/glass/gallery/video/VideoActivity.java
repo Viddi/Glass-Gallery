@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	private VideoView mVideoView;
 	private ProgressBar mProgressBar;
 	private TextView mTxtView;
+    private ImageView mImageView;
 
 	private Handler mHandler = new Handler();
 
@@ -63,10 +65,10 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mVideoView = (VideoView) findViewById(R.id.video_videoView);
 		mVideoView.setVideoPath(mVideo.getPath());
 
-		mTxtView = (TextView) findViewById(R.id.video_textView);
-
 		mProgressBar = (ProgressBar) findViewById(R.id.video_progressBar);
-		// FIXME: ^^ is this animating by default?
+        // FIXME: ^^ is this animating by default?
+        mTxtView = (TextView) findViewById(R.id.video_textView);
+        mImageView = (ImageView) findViewById(R.id.video_imgView);
 
 		mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 			@Override
@@ -123,8 +125,10 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	private void togglePlaying() {
 		if (mVideoView.isPlaying()) {
 			mVideoView.pause();
+            mHandler.removeCallbacks(mRunner);
 		} else {
 			mVideoView.start();
+            mHandler.postDelayed(mRunner, 200);
 		}
 	}
 
