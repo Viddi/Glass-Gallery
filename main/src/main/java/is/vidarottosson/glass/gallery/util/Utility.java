@@ -2,6 +2,8 @@ package is.vidarottosson.glass.gallery.util;
 
 //  Created by Viddi on 12/8/13.
 
+import android.widget.Toast;
+
 import java.text.DecimalFormat;
 
 import is.vidarottosson.glass.gallery.models.PictureItem;
@@ -71,4 +73,16 @@ public class Utility {
 			return (difference / MILLIS_PER_DAY) + " days ago";
 		}
 	}
+
+    public static String videoProgressTextFromMillis(int current, int total) {
+        int currentMin = current / MILLIS_PER_MINUTE;
+        int currentSec = (current % MILLIS_PER_MINUTE) / MILLIS_PER_SECOND;
+        int totalMin = total / MILLIS_PER_MINUTE;
+        int totalSec = (total % MILLIS_PER_MINUTE) / MILLIS_PER_SECOND;
+
+        String currentSeconds = currentSec > 9 ? ":" + currentSec : ":0" + currentSec;
+        String totalSeconds = totalSec > 9 ? ":" + totalSec : ":0" + totalSec;
+
+        return currentMin + currentSeconds + " / " + totalMin + totalSeconds;
+    }
 }

@@ -17,12 +17,12 @@ import android.widget.VideoView;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
-import java.io.File;
+import android.os.Handler;
 
 import is.vidarottosson.glass.gallery.DeleteActivity;
-import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
+import is.vidarottosson.glass.gallery.util.Utility;
 
 public class VideoActivity extends Activity implements GestureDetector.BaseListener {
 	public static final String TAG = VideoActivity.class.getSimpleName();
@@ -33,6 +33,9 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 
 	private VideoView mVideoView;
 	private ProgressBar mProgressBar;
+	private TextView mTxtView;
+
+	private Handler mHandler = new Handler();
 
 	private GestureDetector mDetector;
 
@@ -60,7 +63,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mVideoView = (VideoView) findViewById(R.id.video_videoView);
 		mVideoView.setVideoPath(mVideo.getPath());
 
-		((TextView) findViewById(R.id.video_textView)).setText(mVideo.getName());
+		mTxtView = (TextView) findViewById(R.id.video_textView);
 
 		mProgressBar = (ProgressBar) findViewById(R.id.video_progressBar);
 		// FIXME: ^^ is this animating by default?
@@ -74,6 +77,8 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		});
 
 		mDetector = new GestureDetector(this).setBaseListener(this);
+
+        mHandler.postDelayed(mRunner, 200);
 	}
 
 	@Override
@@ -122,4 +127,13 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 			mVideoView.start();
 		}
 	}
+
+    private Runnable mRunner = new Runnable() {
+        @Override
+        public void run() {
+            mTxtView.setText(Utility.videoProgressTextFromMillis(mVideoView.getCurrentPosition(), mVideoView.getDuration()));
+
+            mHandler.postDelayed(this, 200);
+        }
+    };
 }
