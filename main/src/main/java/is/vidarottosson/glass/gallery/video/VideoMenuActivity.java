@@ -28,7 +28,13 @@ public class VideoMenuActivity extends Activity {
 		}
 	}
 
-	@Override
+    @Override
+    protected void onResume() {
+        super.onResume();
+        openOptionsMenu();
+    }
+
+    @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.video, menu);
 		return true;

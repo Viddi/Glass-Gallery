@@ -16,22 +16,24 @@ public class FileItem {
 	private Type mFileType;
 	private String mName;
 	private String mExtension;
+	private long mLastModified;
 
-    public FileItem(String filePath) {
-        this(new File(filePath));
-    }
+	public FileItem(String filePath) {
+		this(new File(filePath));
+	}
 
 	public FileItem(File file) {
-        if(Utility.isImage(file.getAbsolutePath())) {
-            mFileType = Type.PICTURE;
-        }
-        else if(Utility.isVideo(file.getAbsolutePath())) {
-            mFileType = Type.VIDEO;
-        }
+		if (Utility.isImage(file.getAbsolutePath())) {
+			mFileType = Type.PICTURE;
+		} else if (Utility.isVideo(file.getAbsolutePath())) {
+			mFileType = Type.VIDEO;
+		}
 
-		this.mPath = file.getAbsolutePath();
-		this.mName = file.getName();
+		mPath = file.getAbsolutePath();
+		mName = file.getName();
 		setExtension(file.getName());
+
+		mLastModified = file.lastModified();
 	}
 
 	public String getPath() {
@@ -67,14 +69,18 @@ public class FileItem {
 		mExtension = (fileName.substring(fileName.lastIndexOf('.')));
 	}
 
+	public long getLastModified() {
+		return mLastModified;
+	}
+
 	public boolean deleteItem() {
-        if (mPath != null) {
-            File file = new File(mPath);
+		if (mPath != null) {
+			File file = new File(mPath);
 
-            return file.delete();
-        }
+			return file.delete();
+		}
 
-        return false;
+		return false;
 	}
 
 	@Override

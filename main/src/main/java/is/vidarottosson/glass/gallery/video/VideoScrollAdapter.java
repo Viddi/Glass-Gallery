@@ -4,11 +4,8 @@ package is.vidarottosson.glass.gallery.video;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +20,7 @@ import java.util.List;
 
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
+import is.vidarottosson.glass.gallery.util.Utility;
 
 public class VideoScrollAdapter extends CardScrollAdapter {
 	public static final String TAG = VideoScrollAdapter.class.getSimpleName();
@@ -68,7 +66,7 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 
 			holder = new ViewHolder();
 			holder.thumbnail = (ImageView) view.findViewById(R.id.videoList_imageView);
-			holder.txtName = (TextView) view.findViewById(R.id.videoList_textView);
+			holder.txtDate = (TextView) view.findViewById(R.id.videoList_textView);
 			holder.progressBar = (ProgressBar) view.findViewById(R.id.videoList_progressBar);
 
 			view.setTag(holder);
@@ -81,7 +79,7 @@ public class VideoScrollAdapter extends CardScrollAdapter {
         Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.getPath(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
 
         holder.thumbnail.setImageBitmap(thumb);
-		holder.txtName.setText(video.getName());
+		holder.txtDate.setText(Utility.readableTimeDifferenceSinceNow(video.getLastModified()));
 
 		return setItemOnCard(this, view);
 	}
@@ -110,7 +108,7 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 
 	static class ViewHolder {
 		ImageView thumbnail;
-		TextView txtName;
+		TextView txtDate;
 		ProgressBar progressBar;
 	}
 }

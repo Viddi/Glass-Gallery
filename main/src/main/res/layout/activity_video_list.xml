@@ -8,20 +8,28 @@
 
     <ImageView
             android:id="@+id/videoList_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitCenter"
             android:src="@drawable/dummy"
             android:layout_centerHorizontal="true"/>
 
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_video"
+            android:layout_centerInParent="true"/>
+
     <TextView
             android:id="@+id/videoList_textView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@android:color/white"
-            android:layout_alignBottom="@+id/videoList_imageView"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:text="Dummy Picture"/>
 
     <ProgressBar

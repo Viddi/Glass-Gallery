@@ -27,12 +27,12 @@ import is.vidarottosson.glass.gallery.models.VideoItem;
 public class VideoActivity extends Activity implements GestureDetector.BaseListener {
 	public static final String TAG = VideoActivity.class.getSimpleName();
 
-    public static final int INTENT_OPTIONS_MENU = 101;
+	public static final int INTENT_OPTIONS_MENU = 101;
 
 	private VideoItem mVideo;
 
 	private VideoView mVideoView;
-    private ProgressBar mProgressBar;
+	private ProgressBar mProgressBar;
 
 	private GestureDetector mDetector;
 
@@ -60,7 +60,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mVideoView = (VideoView) findViewById(R.id.video_videoView);
 		mVideoView.setVideoPath(mVideo.getPath());
 
-        ((TextView) findViewById(R.id.video_textView)).setText(mVideo.getName());
+		((TextView) findViewById(R.id.video_textView)).setText(mVideo.getName());
 
 		mProgressBar = (ProgressBar) findViewById(R.id.video_progressBar);
 		// FIXME: ^^ is this animating by default?
@@ -76,17 +76,17 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mDetector = new GestureDetector(this).setBaseListener(this);
 	}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == INTENT_OPTIONS_MENU && resultCode == DeleteActivity.RESULT_DELETED) {
-            setResult(DeleteActivity.RESULT_DELETED);
-            finish();
-        }
-    }
+		if (requestCode == INTENT_OPTIONS_MENU && resultCode == DeleteActivity.RESULT_DELETED) {
+			setResult(DeleteActivity.RESULT_DELETED);
+			finish();
+		}
+	}
 
-    //     ___       _             __                  ___                 _                           _        _   _
+	//     ___       _             __                  ___                 _                           _        _   _
 	//    |_ _|_ __ | |_ ___ _ __ / _| __ _  ___ ___  |_ _|_ __ ___  _ __ | | ___ _ __ ___   ___ _ __ | |_ __ _| |_(_) ___  _ __  ___
 	//     | || '_ \| __/ _ \ '__| |_ / _` |/ __/ _ \  | || '_ ` _ \| '_ \| |/ _ \ '_ ` _ \ / _ \ '_ \| __/ _` | __| |/ _ \| '_ \/ __|
 	//     | || | | | ||  __/ |  |  _| (_| | (_|  __/  | || | | | | | |_) | |  __/ | | | | |  __/ | | | || (_| | |_| | (_) | | | \__ \
@@ -102,12 +102,6 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	public boolean onGesture(Gesture gesture) {
 		Log.i(TAG, "the gesture is: " + gesture);
 		if (gesture == Gesture.TAP || gesture == Gesture.LONG_PRESS) {
-			togglePlaying();
-			showMenu();
-			return true;
-		}
-
-		if (gesture == Gesture.TWO_TAP) {
 			togglePlaying();
 			return true;
 		}
@@ -127,11 +121,5 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		} else {
 			mVideoView.start();
 		}
-	}
-
-	private void showMenu() {
-		Intent intent = new Intent(this, OptionsMenuActivity.class);
-        intent.putExtra(VideoItem.KEY_FOR_INTENT_EXTRA, mVideo);
-		startActivityForResult(intent, INTENT_OPTIONS_MENU);
 	}
 }
