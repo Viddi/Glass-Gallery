@@ -5,7 +5,7 @@
     <item
             android:id="@+id/play"
             android:title="@string/play"
-            android:icon="@drawable/ic_play"/>
+            android:icon="@drawable/ic_play_large"/>
 
     <item
             android:id="@+id/delete"

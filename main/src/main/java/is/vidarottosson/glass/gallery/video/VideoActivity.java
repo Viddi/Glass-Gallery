@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,12 +35,12 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	private VideoItem mVideo;
 
 	private VideoView mVideoView;
-	private ProgressBar mProgressBar;
 	private TextView mTxtView;
     private ImageView mImageView;
 
 	private Handler mHandler = new Handler();
 
+    private Animation mAnimation;
 	private GestureDetector mDetector;
 
 	//     _     _  __                      _
@@ -65,8 +67,6 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mVideoView = (VideoView) findViewById(R.id.video_videoView);
 		mVideoView.setVideoPath(mVideo.getPath());
 
-		mProgressBar = (ProgressBar) findViewById(R.id.video_progressBar);
-        // FIXME: ^^ is this animating by default?
         mTxtView = (TextView) findViewById(R.id.video_textView);
         mImageView = (ImageView) findViewById(R.id.video_imgView);
 
@@ -74,10 +74,10 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 			@Override
 			public void onPrepared(MediaPlayer mediaPlayer) {
 				mVideoView.start();
-				mProgressBar.setVisibility(View.GONE);
 			}
 		});
 
+        mAnimation = AnimationUtils.loadAnimation(this, R.anim.expand_and_fade);
 		mDetector = new GestureDetector(this).setBaseListener(this);
 
         mHandler.postDelayed(mRunner, 200);
@@ -126,10 +126,18 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		if (mVideoView.isPlaying()) {
 			mVideoView.pause();
             mHandler.removeCallbacks(mRunner);
+
+            mImageView.setImageResource(R.drawable.ic_pause_large);
 		} else {
 			mVideoView.start();
             mHandler.postDelayed(mRunner, 200);
+
+            mImageView.setImageResource(R.drawable.ic_play_large);
 		}
+
+        mImageView.setVisibility(View.VISIBLE);
+        mImageView.startAnimation(mAnimation);
+        mImageView.setVisibility(View.INVISIBLE);
 	}
 
     private Runnable mRunner = new Runnable() {
