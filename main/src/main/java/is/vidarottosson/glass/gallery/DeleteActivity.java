@@ -25,6 +25,9 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 	public static final int PROGRESS_SECONDS = 2000;
 	public static final int WAIT_SECONDS = 250;
 
+    public static final int RESULT_DELETED = 301;
+    public static final int INTENT_DELETE = 302;
+
 	private LinearLayout mDeletingLayout, mDeletedLayout;
 	private SliderView mSliderView;
 

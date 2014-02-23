@@ -18,10 +18,6 @@ public class OptionsMenuActivity extends Activity {
     public static final String TAG = OptionsMenuActivity.class.getSimpleName();
     
     public static final String KEY_INTENT_EXTRA_PICTURE = "pictureItem";
-    public static final String KEY_INTENT_EXTRA_VIDEO = "videoItem";
-
-    public static final int RESULT_DELETED = 301;
-    public static final int INTENT_DELETE = 302;
 
     private FileItem mFileItem;
     private boolean isWaiting = false;
@@ -34,8 +30,8 @@ public class OptionsMenuActivity extends Activity {
         if(bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE) != null) {
             mFileItem = (PictureItem) bundle.getParcelable(KEY_INTENT_EXTRA_PICTURE);
         }
-        else if(bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO) != null) {
-            mFileItem = (VideoItem) bundle.getParcelable(KEY_INTENT_EXTRA_VIDEO);
+        else if(bundle.getParcelable(VideoItem.KEY_FOR_INTENT_EXTRA) != null) {
+            mFileItem = (VideoItem) bundle.getParcelable(VideoItem.KEY_FOR_INTENT_EXTRA);
         }
     }
 
@@ -70,7 +66,7 @@ public class OptionsMenuActivity extends Activity {
             case R.id.delete:
                 Intent deleteIntent = new Intent(this, DeleteActivity.class);
                 deleteIntent.putExtra(DeleteActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
-                startActivityForResult(deleteIntent, INTENT_DELETE);
+                startActivityForResult(deleteIntent, DeleteActivity.INTENT_DELETE);
                 isWaiting = true;
                 return true;
             default:
@@ -89,8 +85,8 @@ public class OptionsMenuActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == INTENT_DELETE && resultCode == RESULT_OK) {
-            setResult(RESULT_DELETED);
+        if(requestCode == DeleteActivity.INTENT_DELETE && resultCode == RESULT_OK) {
+            setResult(DeleteActivity.RESULT_DELETED);
             finish();
         }
     }

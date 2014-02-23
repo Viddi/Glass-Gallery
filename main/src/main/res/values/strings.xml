@@ -17,4 +17,5 @@
     <string name="details_time">Time</string>
     <string name="details_file_size">File size</string>
     <string name="details_path">Path</string>
+    <string name="play">Play</string>
 </resources>
