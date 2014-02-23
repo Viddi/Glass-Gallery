@@ -19,6 +19,7 @@ import com.google.android.glass.touchpad.GestureDetector;
 
 import java.io.File;
 
+import is.vidarottosson.glass.gallery.DeleteActivity;
 import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
@@ -79,8 +80,8 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == INTENT_OPTIONS_MENU && resultCode == OptionsMenuActivity.RESULT_DELETED) {
-            setResult(OptionsMenuActivity.RESULT_DELETED);
+        if (requestCode == INTENT_OPTIONS_MENU && resultCode == DeleteActivity.RESULT_DELETED) {
+            setResult(DeleteActivity.RESULT_DELETED);
             finish();
         }
     }
@@ -130,7 +131,7 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 
 	private void showMenu() {
 		Intent intent = new Intent(this, OptionsMenuActivity.class);
-        intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA_VIDEO, mVideo);
+        intent.putExtra(VideoItem.KEY_FOR_INTENT_EXTRA, mVideo);
 		startActivityForResult(intent, INTENT_OPTIONS_MENU);
 	}
 }

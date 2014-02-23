@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import is.vidarottosson.glass.gallery.DeleteActivity;
 import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.Utility;
@@ -131,7 +132,7 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == INTENT_OPTIONS_MENU && resultCode == OptionsMenuActivity.RESULT_DELETED) {
+        if (requestCode == INTENT_OPTIONS_MENU && resultCode == DeleteActivity.RESULT_DELETED) {
             mPictureItems.remove(mPosition);
             mAdapter.notifyDataSetChanged();
         }

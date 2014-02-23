@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import is.vidarottosson.glass.gallery.DeleteActivity;
 import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 import is.vidarottosson.glass.gallery.util.Utility;
@@ -71,7 +72,7 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == INTENT_VIDEO_ACTIVITY && resultCode == OptionsMenuActivity.RESULT_DELETED) {
+        if (requestCode == INTENT_VIDEO_ACTIVITY && resultCode == DeleteActivity.RESULT_DELETED) {
             mVideoItems.remove(mPosition);
             mAdapter.notifyDataSetChanged();
         }
@@ -134,7 +135,7 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 			mPosition = mView.getSelectedItemPosition();
 			VideoItem video = mAdapter.getItem(mPosition);
 
-			Intent intent = new Intent(this, VideoActivity.class);
+			Intent intent = new Intent(this, VideoMenuActivity.class);
 			intent.putExtra(VideoItem.KEY_FOR_INTENT_EXTRA, video);
             startActivityForResult(intent, INTENT_VIDEO_ACTIVITY);
 		}
