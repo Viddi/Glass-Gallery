@@ -8,6 +8,11 @@
             android:icon="@drawable/ic_play_large"/>
 
     <item
+            android:id="@+id/details"
+            android:title="@string/details"
+            android:icon="@drawable/ic_document"/>
+
+    <item
             android:id="@+id/delete"
             android:title="@string/delete"
             android:icon="@drawable/ic_delete"/>

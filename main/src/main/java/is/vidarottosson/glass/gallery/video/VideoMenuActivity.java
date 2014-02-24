@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import is.vidarottosson.glass.gallery.DeleteActivity;
+import is.vidarottosson.glass.gallery.DetailsActivity;
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 
@@ -49,6 +50,12 @@ public class VideoMenuActivity extends Activity {
 				startActivity(playIntent);
 				finish();
 				return true;
+            case R.id.details:
+                Intent detailsIntent = new Intent(this, DetailsActivity.class);
+                detailsIntent.putExtra(DetailsActivity.KEY_INTENT_EXTRA_PATH, mVideo.getPath());
+                startActivity(detailsIntent);
+                mIsWaiting = true;
+                return true;
 			case R.id.delete:
 				Intent deleteIntent = new Intent(this, DeleteActivity.class);
 				deleteIntent.putExtra(DeleteActivity.KEY_INTENT_EXTRA_PATH, mVideo.getPath());

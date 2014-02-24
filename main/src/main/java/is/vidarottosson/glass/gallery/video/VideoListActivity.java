@@ -3,11 +3,14 @@ package is.vidarottosson.glass.gallery.video;
 //  Created by jonathon on 1/29/14.
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.google.android.glass.widget.CardScrollView;
@@ -131,6 +134,9 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 	public boolean onGesture(Gesture gesture) {
         Log.i(TAG, "the gesture is: " + gesture);
 		if (gesture == Gesture.TAP || gesture == Gesture.LONG_PRESS) {
+            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            audio.playSoundEffect(Sounds.TAP);
+
 			mPosition = mView.getSelectedItemPosition();
 			VideoItem video = mAdapter.getItem(mPosition);
 
