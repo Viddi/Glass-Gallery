@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            android:alpha="0.8"/>
 
     <TextView
             android:id="@+id/details_tvTitle"
@@ -17,20 +23,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:textSize="40px"/>
+            android:textSize="40px"
+            android:layout_below="@+id/details_tvTitle"/>
 
     <TextView
             android:id="@+id/details_tvSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:textSize="40px"/>
+            android:textSize="40px"
+            android:layout_below="@+id/details_tvTime"/>
 
     <TextView
             android:id="@+id/details_tvPath"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:textSize="40px"/>
+            android:textSize="40px"
+            android:layout_below="@+id/details_tvSize"/>
 
-</LinearLayout>
+</RelativeLayout>

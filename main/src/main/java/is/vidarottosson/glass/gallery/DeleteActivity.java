@@ -9,12 +9,12 @@ import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.glass.media.Sounds;
 import com.google.glass.widget.SliderView;
+
 import is.vidarottosson.glass.gallery.models.FileItem;
 
 public class DeleteActivity extends Activity implements SliderView.OnAnimateListener {
@@ -23,12 +23,13 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 
 	public static final String KEY_INTENT_EXTRA_PATH = "filePath";
 	public static final int PROGRESS_SECONDS = 2000;
-	public static final int WAIT_SECONDS = 250;
+	public static final int WAIT_SECONDS = 1000;
 
     public static final int RESULT_DELETED = 301;
     public static final int INTENT_DELETE = 302;
 
-	private LinearLayout mDeletingLayout, mDeletedLayout;
+    private TextView mTextView;
+    private ImageView mImageView;
 	private SliderView mSliderView;
 
 	private FileItem mFileItem;
@@ -39,14 +40,12 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_delete);
 
-		mDeletingLayout = (LinearLayout) findViewById(R.id.delete_layoutDeleting);
-		mDeletedLayout = (LinearLayout) findViewById(R.id.delete_layoutDeleted);
-
 		Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto-Thin.ttf");
 
-		((TextView) findViewById(R.id.delete_tvDeleting)).setTypeface(typeface);
-		((TextView) findViewById(R.id.delete_tvDeleted)).setTypeface(typeface);
+		((TextView) findViewById(R.id.delete_textView)).setTypeface(typeface);
 
+        mImageView = (ImageView) findViewById(R.id.delete_imageView);
+        mTextView = (TextView) findViewById(R.id.delete_textView);
 		mSliderView = (SliderView) findViewById(R.id.delete_progressBar);
 
 		Intent intent = getIntent();
@@ -81,8 +80,8 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
         }
 
         if(mFileItem.deleteItem()) {
-            mDeletingLayout.setVisibility(View.GONE);
-            mDeletedLayout.setVisibility(View.VISIBLE);
+            mImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_done));
+            mTextView.setText(getResources().getString(R.string.deleted));
 
             AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audio.playSoundEffect(Sounds.SUCCESS);
@@ -91,6 +90,9 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
             setResult(RESULT_OK);
         }
         else {
+            mImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_no));
+            mTextView.setText(getResources().getString(R.string.error));
+
             AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audio.playSoundEffect(Sounds.ERROR);
 
