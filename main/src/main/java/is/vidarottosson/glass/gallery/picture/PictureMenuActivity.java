@@ -1,4 +1,4 @@
-package is.vidarottosson.glass.gallery;
+package is.vidarottosson.glass.gallery.picture;
 
 //  Created by Viddi on 2/14/14.
 
@@ -9,13 +9,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import is.vidarottosson.glass.gallery.DeleteActivity;
+import is.vidarottosson.glass.gallery.DetailsActivity;
+import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.FileItem;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 
-public class OptionsMenuActivity extends Activity {
+public class PictureMenuActivity extends Activity {
 
-    public static final String TAG = OptionsMenuActivity.class.getSimpleName();
+    public static final String TAG = PictureMenuActivity.class.getSimpleName();
     
     public static final String KEY_INTENT_EXTRA_PICTURE = "pictureItem";
 

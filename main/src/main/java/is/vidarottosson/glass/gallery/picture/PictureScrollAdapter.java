@@ -1,4 +1,4 @@
-package is.vidarottosson.glass.gallery.pics;
+package is.vidarottosson.glass.gallery.picture;
 
 //  Created by Viddi on 12/6/13.
 

@@ -1,4 +1,4 @@
-package is.vidarottosson.glass.gallery.pics;
+package is.vidarottosson.glass.gallery.picture;
 
 //  Created by Viddi on 12/6/13.
 
@@ -22,7 +22,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import is.vidarottosson.glass.gallery.DeleteActivity;
-import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.models.PictureItem;
 import is.vidarottosson.glass.gallery.util.Utility;
 
@@ -113,8 +112,8 @@ public class PictureActivity extends Activity implements GestureDetector.BaseLis
             mPosition = mView.getSelectedItemPosition();
             PictureItem picture = mAdapter.getItem(mPosition);
 
-            Intent intent = new Intent(this, OptionsMenuActivity.class);
-            intent.putExtra(OptionsMenuActivity.KEY_INTENT_EXTRA_PICTURE, picture);
+            Intent intent = new Intent(this, PictureMenuActivity.class);
+            intent.putExtra(PictureMenuActivity.KEY_INTENT_EXTRA_PICTURE, picture);
             startActivityForResult(intent, INTENT_OPTIONS_MENU);
         }
 

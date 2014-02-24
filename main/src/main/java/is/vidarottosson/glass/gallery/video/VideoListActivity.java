@@ -19,7 +19,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import is.vidarottosson.glass.gallery.DeleteActivity;
-import is.vidarottosson.glass.gallery.OptionsMenuActivity;
 import is.vidarottosson.glass.gallery.models.VideoItem;
 import is.vidarottosson.glass.gallery.util.Utility;
 

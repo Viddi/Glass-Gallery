@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import is.vidarottosson.glass.gallery.pics.PictureActivity;
+import is.vidarottosson.glass.gallery.picture.PictureActivity;
 import is.vidarottosson.glass.gallery.video.VideoListActivity;
 
 public class MenuActivity extends Activity {

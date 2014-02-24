@@ -29,7 +29,7 @@
         </activity>
 
         <activity
-                android:name=".pics.PictureActivity"
+                android:name=".picture.PictureActivity"
                 android:label="@string/app_name"
                 android:enabled="true">
         </activity>
@@ -49,12 +49,14 @@
         <activity
                 android:name=".video.VideoMenuActivity"
                 android:label="@string/app_name"
+                android:theme="@style/MenuTheme"
                 android:enabled="true">
         </activity>
 
         <activity
-                android:name=".OptionsMenuActivity"
+                android:name=".picture.PictureMenuActivity"
                 android:label="@string/app_name"
+                android:theme="@style/MenuTheme"
                 android:enabled="true">
         </activity>
 
