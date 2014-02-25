@@ -74,11 +74,11 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 			holder = (ViewHolder) view.getTag();
 		}
 
-        // TODO: fix this soon, but it should provide a solution for now even though it's more work than should be done
+		// TODO: fix this soon - this is probably doing too much work on the main thread
 
-        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.getPath(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
+		Bitmap thumb = ThumbnailUtils.createVideoThumbnail(video.getPath(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
 
-        holder.thumbnail.setImageBitmap(thumb);
+		holder.thumbnail.setImageBitmap(thumb);
 		holder.txtDate.setText(Utility.readableTimeDifferenceSinceNow(video.getLastModified()));
 
 		return setItemOnCard(this, view);

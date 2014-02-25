@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <ImageView
             android:layout_width="match_parent"
@@ -18,19 +18,19 @@
             android:layout_centerInParent="true"
             android:gravity="center">
 
-            <ImageView
-                    android:id="@+id/delete_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_delete"/>
+        <ImageView
+                android:id="@+id/delete_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_delete"/>
 
-            <TextView
-                    android:id="@+id/delete_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="60px"
-                    android:text="@string/deleting"/>
+        <TextView
+                android:id="@+id/delete_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="60px"
+                android:text="@string/deleting"/>
 
     </LinearLayout>
 

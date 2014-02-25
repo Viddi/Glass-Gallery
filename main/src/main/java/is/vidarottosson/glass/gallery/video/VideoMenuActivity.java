@@ -29,13 +29,13 @@ public class VideoMenuActivity extends Activity {
 		}
 	}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        openOptionsMenu();
-    }
+	@Override
+	protected void onResume() {
+		super.onResume();
+		openOptionsMenu();
+	}
 
-    @Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.video, menu);
 		return true;
@@ -50,12 +50,12 @@ public class VideoMenuActivity extends Activity {
 				startActivity(playIntent);
 				finish();
 				return true;
-            case R.id.details:
-                Intent detailsIntent = new Intent(this, DetailsActivity.class);
-                detailsIntent.putExtra(DetailsActivity.KEY_INTENT_EXTRA_PATH, mVideo.getPath());
-                startActivity(detailsIntent);
-                mIsWaiting = true;
-                return true;
+			case R.id.details:
+				Intent detailsIntent = new Intent(this, DetailsActivity.class);
+				detailsIntent.putExtra(DetailsActivity.KEY_INTENT_EXTRA_PATH, mVideo.getPath());
+				startActivity(detailsIntent);
+				mIsWaiting = true;
+				return true;
 			case R.id.delete:
 				Intent deleteIntent = new Intent(this, DeleteActivity.class);
 				deleteIntent.putExtra(DeleteActivity.KEY_INTENT_EXTRA_PATH, mVideo.getPath());

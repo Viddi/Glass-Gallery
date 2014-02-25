@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -36,11 +35,11 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 
 	private VideoView mVideoView;
 	private TextView mTxtView;
-    private ImageView mImageView;
+	private ImageView mImageView;
 
 	private Handler mHandler = new Handler();
 
-    private Animation mAnimation;
+	private Animation mAnimation;
 	private GestureDetector mDetector;
 
 	//     _     _  __                      _
@@ -67,8 +66,8 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 		mVideoView = (VideoView) findViewById(R.id.video_videoView);
 		mVideoView.setVideoPath(mVideo.getPath());
 
-        mTxtView = (TextView) findViewById(R.id.video_textView);
-        mImageView = (ImageView) findViewById(R.id.video_imgView);
+		mTxtView = (TextView) findViewById(R.id.video_textView);
+		mImageView = (ImageView) findViewById(R.id.video_imgView);
 
 		mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 			@Override
@@ -77,10 +76,10 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 			}
 		});
 
-        mAnimation = AnimationUtils.loadAnimation(this, R.anim.expand_and_fade);
+		mAnimation = AnimationUtils.loadAnimation(this, R.anim.expand_and_fade);
 		mDetector = new GestureDetector(this).setBaseListener(this);
 
-        mHandler.postDelayed(mRunner, 200);
+		mHandler.postDelayed(mRunner, 200);
 	}
 
 	@Override
@@ -125,27 +124,27 @@ public class VideoActivity extends Activity implements GestureDetector.BaseListe
 	private void togglePlaying() {
 		if (mVideoView.isPlaying()) {
 			mVideoView.pause();
-            mHandler.removeCallbacks(mRunner);
+			mHandler.removeCallbacks(mRunner);
 
-            mImageView.setImageResource(R.drawable.ic_pause_large);
+			mImageView.setImageResource(R.drawable.ic_pause_large);
 		} else {
 			mVideoView.start();
-            mHandler.postDelayed(mRunner, 200);
+			mHandler.postDelayed(mRunner, 200);
 
-            mImageView.setImageResource(R.drawable.ic_play_large);
+			mImageView.setImageResource(R.drawable.ic_play_large);
 		}
 
-        mImageView.setVisibility(View.VISIBLE);
-        mImageView.startAnimation(mAnimation);
-        mImageView.setVisibility(View.INVISIBLE);
+		mImageView.setVisibility(View.VISIBLE);
+		mImageView.startAnimation(mAnimation);
+		mImageView.setVisibility(View.INVISIBLE);
 	}
 
-    private Runnable mRunner = new Runnable() {
-        @Override
-        public void run() {
-            mTxtView.setText(Utility.videoProgressTextFromMillis(mVideoView.getCurrentPosition(), mVideoView.getDuration()));
+	private Runnable mRunner = new Runnable() {
+		@Override
+		public void run() {
+			mTxtView.setText(Utility.videoProgressTextFromMillis(mVideoView.getCurrentPosition(), mVideoView.getDuration()));
 
-            mHandler.postDelayed(this, 200);
-        }
-    };
+			mHandler.postDelayed(this, 200);
+		}
+	};
 }

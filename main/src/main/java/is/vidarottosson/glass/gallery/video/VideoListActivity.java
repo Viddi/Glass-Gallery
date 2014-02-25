@@ -28,14 +28,14 @@ import is.vidarottosson.glass.gallery.util.Utility;
 public class VideoListActivity extends Activity implements GestureDetector.BaseListener {
 	public static final String TAG = VideoListActivity.class.getSimpleName();
 
-    public static final int INTENT_VIDEO_ACTIVITY = 401;
+	public static final int INTENT_VIDEO_ACTIVITY = 401;
 
 	private CardScrollView mView;
 	private VideoScrollAdapter mAdapter;
 	private GestureDetector mDetector;
 
-    private List<VideoItem> mVideoItems;
-    private int mPosition;
+	private List<VideoItem> mVideoItems;
+	private int mPosition;
 
 	//     _     _  __                      _
 	//    | |   (_)/ _| ___  ___ _   _  ___| | ___
@@ -48,7 +48,7 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        mVideoItems = queryVideos();
+		mVideoItems = queryVideos();
 
 		mAdapter = new VideoScrollAdapter(this, mVideoItems);
 		mView = new CardScrollView(this);
@@ -70,17 +70,17 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 		mView.deactivate();
 	}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == INTENT_VIDEO_ACTIVITY && resultCode == DeleteActivity.RESULT_DELETED) {
-            mVideoItems.remove(mPosition);
-            mAdapter.notifyDataSetChanged();
-        }
-    }
+		if (requestCode == INTENT_VIDEO_ACTIVITY && resultCode == DeleteActivity.RESULT_DELETED) {
+			mVideoItems.remove(mPosition);
+			mAdapter.notifyDataSetChanged();
+		}
+	}
 
-    //     ____       _            _         __  __      _   _               _
+	//     ____       _            _         __  __      _   _               _
 	//    |  _ \ _ __(_)_   ____ _| |_ ___  |  \/  | ___| |_| |__   ___   __| |___
 	//    | |_) | '__| \ \ / / _` | __/ _ \ | |\/| |/ _ \ __| '_ \ / _ \ / _` / __|
 	//    |  __/| |  | |\ V / (_| | ||  __/ | |  | |  __/ |_| | | | (_) | (_| \__ \
@@ -94,9 +94,9 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 
 		Log.i(TAG, "Querying videos...");
 
-        if (files == null) {
-            // TODO: show the user that there are no files
-        }
+		if (files == null) {
+			// TODO: show the user that there are no files
+		}
 
 		Arrays.sort(files, new Comparator<File>() {
 			@Override
@@ -132,17 +132,17 @@ public class VideoListActivity extends Activity implements GestureDetector.BaseL
 
 	@Override
 	public boolean onGesture(Gesture gesture) {
-        Log.i(TAG, "the gesture is: " + gesture);
+		Log.i(TAG, "the gesture is: " + gesture);
 		if (gesture == Gesture.TAP || gesture == Gesture.LONG_PRESS) {
-            AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-            audio.playSoundEffect(Sounds.TAP);
+			AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+			audio.playSoundEffect(Sounds.TAP);
 
 			mPosition = mView.getSelectedItemPosition();
 			VideoItem video = mAdapter.getItem(mPosition);
 
 			Intent intent = new Intent(this, VideoMenuActivity.class);
 			intent.putExtra(VideoItem.KEY_FOR_INTENT_EXTRA, video);
-            startActivityForResult(intent, INTENT_VIDEO_ACTIVITY);
+			startActivityForResult(intent, INTENT_VIDEO_ACTIVITY);
 		}
 
 		return false;
