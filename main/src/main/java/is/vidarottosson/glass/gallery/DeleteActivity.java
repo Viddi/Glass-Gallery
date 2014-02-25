@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,8 +23,8 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 	public static final String TAG = DeleteActivity.class.getSimpleName();
 
 	public static final String KEY_INTENT_EXTRA_PATH = "filePath";
-	public static final int PROGRESS_SECONDS = 2000;
-	public static final int WAIT_SECONDS = 1000;
+	public static final int PROGRESS_MILLIS = 2000;
+	public static final int WAIT_MILLIS = 1000;
 
     public static final int RESULT_DELETED = 301;
     public static final int INTENT_DELETE = 302;
@@ -33,6 +34,7 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 	private SliderView mSliderView;
 
 	private FileItem mFileItem;
+    private Handler mHandler = new Handler();
     private boolean isAnimating = true;
 
 	@Override
@@ -55,7 +57,7 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
 		}
 
         mSliderView.setOnAnimateListener(this);
-        mSliderView.startProgress(PROGRESS_SECONDS);
+        mSliderView.startProgress(PROGRESS_MILLIS);
 	}
 
     @Override
@@ -80,27 +82,23 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
         }
 
         if(mFileItem.deleteItem()) {
-            mImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_done));
+            mImageView.setImageResource(R.drawable.ic_done);
             mTextView.setText(getResources().getString(R.string.deleted));
 
             AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audio.playSoundEffect(Sounds.SUCCESS);
 
-            sleep(WAIT_SECONDS);
-            setResult(RESULT_OK);
+            mHandler.postDelayed(mRunner, WAIT_MILLIS);
         }
         else {
-            mImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_no));
+            mImageView.setImageResource(R.drawable.ic_no);
             mTextView.setText(getResources().getString(R.string.error));
 
             AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             audio.playSoundEffect(Sounds.ERROR);
 
-            sleep(WAIT_SECONDS);
-            setResult(RESULT_CANCELED);
+            mHandler.postDelayed(mRunner, WAIT_MILLIS);
         }
-
-        finish();
     }
 
     @Override
@@ -109,12 +107,12 @@ public class DeleteActivity extends Activity implements SliderView.OnAnimateList
         finish();
     }
 
-    private void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private Runnable mRunner = new Runnable() {
+        @Override
+        public void run() {
+            setResult(RESULT_OK);
+            finish();
         }
-    }
+    };
 
 }
