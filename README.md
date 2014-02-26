@@ -23,3 +23,7 @@ We're working on recreating the standard Android Gallery app (along with most of
 ## Future Features
 
 - Option to share any media file (this is currently hindered by the GDK, so as soon as this is updated, we will include this functionality)
+
+## Market for Glass
+
+Download our app on [Market for Glass](http://marketforglass.com/appPage.php?appID=20000003)!
