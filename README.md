@@ -11,7 +11,7 @@ As the name implies, this project is a Gallery for Google Glass.  There is curre
 
 We're working on recreating the standard Android Gallery app (along with most of its functionality) for Glass.  The app acts as a live card where you can select either 'Pictures' or 'Videos' stored on the device, and the media is ordered from newest to oldest.
 
-<br/><br/>
+<br/>
 
 ## Current Features
 
