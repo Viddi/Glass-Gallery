@@ -3,9 +3,7 @@ package is.vidarottosson.glass.gallery.util;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import is.vidarottosson.glass.gallery.R;
 import is.vidarottosson.glass.gallery.models.PictureItem;
@@ -13,13 +11,11 @@ import is.vidarottosson.glass.gallery.models.PictureItem;
 public class AsyncBitmapLoader extends AsyncTask<String, String, Void> {
 
     private Context mContext;
-    private ProgressBar mProgressBar;
     private ImageView mImageView;
     private PictureItem mPicture;
 
-    public AsyncBitmapLoader(Context context, ProgressBar progressBar, ImageView imageView, PictureItem picture) {
+    public AsyncBitmapLoader(Context context, ImageView imageView, PictureItem picture) {
         mContext = context;
-        mProgressBar = progressBar;
         mImageView = imageView;
         mPicture = picture;
     }
@@ -27,8 +23,7 @@ public class AsyncBitmapLoader extends AsyncTask<String, String, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mProgressBar.setVisibility(View.VISIBLE);
-        mImageView.setVisibility(View.GONE);
+        mImageView.setImageResource(R.drawable.ic_placeholder_photo);
     }
 
     @Override
@@ -41,9 +36,6 @@ public class AsyncBitmapLoader extends AsyncTask<String, String, Void> {
     @Override
     protected void onPostExecute(Void bitmap) {
         super.onPostExecute(bitmap);
-
-        mProgressBar.setVisibility(View.GONE);
-        mImageView.setVisibility(View.VISIBLE);
 
         if(mPicture.isLoaded()) {
             mImageView.setImageBitmap(mPicture.getBitmap());
