@@ -19,7 +19,7 @@ import is.vidarottosson.glass.gallery.models.VideoItem;
 public class PictureMenuActivity extends Activity {
 
     public static final String TAG = PictureMenuActivity.class.getSimpleName();
-    
+
     public static final String KEY_INTENT_EXTRA_PICTURE = "pictureItem";
 
     private FileItem mFileItem;
@@ -39,8 +39,8 @@ public class PictureMenuActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
         openOptionsMenu();
     }
 
@@ -63,7 +63,7 @@ public class PictureMenuActivity extends Activity {
             case R.id.details:
                 Intent detailsIntent = new Intent(this, DetailsActivity.class);
                 detailsIntent.putExtra(DetailsActivity.KEY_INTENT_EXTRA_PATH, mFileItem.getPath());
-                startActivity(detailsIntent);
+                startActivityForResult(detailsIntent, DetailsActivity.INTENT_DETAILS);
                 isWaiting = true;
                 return true;
             case R.id.delete:
@@ -88,6 +88,8 @@ public class PictureMenuActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        openOptionsMenu();
+
         if(requestCode == DeleteActivity.INTENT_DELETE && resultCode == RESULT_OK) {
             setResult(DeleteActivity.RESULT_DELETED);
             finish();

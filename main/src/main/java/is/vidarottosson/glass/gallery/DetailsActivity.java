@@ -18,6 +18,7 @@ public class DetailsActivity extends Activity {
     public static final String TAG = DetailsActivity.class.getSimpleName();
 
     public static final String KEY_INTENT_EXTRA_PATH = "filePath";
+    public static final int INTENT_DETAILS = 400;
     
     private TextView mTxtTitle, mTxtTime, mTxtSize, mTxtPath;
 

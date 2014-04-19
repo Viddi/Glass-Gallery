@@ -18,11 +18,11 @@ public class ShareMenuActivity extends Activity {
 
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		openOptionsMenu();
-	}
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        openOptionsMenu();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

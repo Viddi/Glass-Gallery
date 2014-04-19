@@ -25,11 +25,11 @@ public class MenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		openOptionsMenu();
-	}
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        openOptionsMenu();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,6 +67,7 @@ public class MenuActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        openOptionsMenu();
 		if (resultCode == RESULT_OK && requestCode == INTENT_PICTURES) {
 
 		}

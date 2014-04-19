@@ -29,11 +29,11 @@ public class VideoMenuActivity extends Activity {
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		openOptionsMenu();
-	}
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        openOptionsMenu();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,7 +53,7 @@ public class VideoMenuActivity extends Activity {
 			case R.id.details:
 				Intent detailsIntent = new Intent(this, DetailsActivity.class);
 				detailsIntent.putExtra(DetailsActivity.KEY_INTENT_EXTRA_PATH, mVideo.getPath());
-				startActivity(detailsIntent);
+				startActivityForResult(detailsIntent, DetailsActivity.INTENT_DETAILS);
 				mIsWaiting = true;
 				return true;
 			case R.id.delete:
@@ -78,6 +78,8 @@ public class VideoMenuActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+        openOptionsMenu();
+
 		if (requestCode == DeleteActivity.INTENT_DELETE && resultCode == RESULT_OK) {
 			setResult(DeleteActivity.RESULT_DELETED);
 			finish();
