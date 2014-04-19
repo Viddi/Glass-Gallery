@@ -81,23 +81,17 @@ public class VideoScrollAdapter extends CardScrollAdapter {
 		holder.thumbnail.setImageBitmap(thumb);
 		holder.txtDate.setText(Utility.readableTimeDifferenceSinceNow(video.getLastModified()));
 
-		return setItemOnCard(this, view);
+		return view;
 	}
 
-	@Override
-	public int findIdPosition(Object o) {
-		if (o instanceof Integer) {
-			int x = (Integer) o;
+	public int getPosition(Object item) {
+		if (item instanceof Integer) {
+			int x = (Integer) item;
 			if (x >= 0 && x < mVideos.size()) {
 				return x;
 			}
 		}
 		return AdapterView.INVALID_POSITION;
-	}
-
-	@Override
-	public int findItemPosition(Object o) {
-		return findIdPosition(o);
 	}
 
 	//    __     ___               _   _       _     _

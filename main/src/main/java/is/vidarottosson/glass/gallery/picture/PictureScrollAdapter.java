@@ -76,23 +76,17 @@ public class PictureScrollAdapter extends CardScrollAdapter {
             mBitmapLoaders.add(loader);
         }
 
-        return setItemOnCard(this, view);
+        return view;
 	}
 
-	@Override
-	public int findIdPosition(Object id) {
-        if (id instanceof Integer) {
-            int idInt = (Integer) id;
+	public int getPosition(Object item) {
+        if (item instanceof Integer) {
+            int idInt = (Integer) item;
             if (idInt >= 0 && idInt < mPictureItems.size()) {
                 return idInt;
             }
         }
         return AdapterView.INVALID_POSITION;
-	}
-
-	@Override
-	public int findItemPosition(Object item) {
-        return findIdPosition(item);
 	}
 
     static class ViewHolder {
