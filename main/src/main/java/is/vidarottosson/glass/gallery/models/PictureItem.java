@@ -3,7 +3,6 @@ package is.vidarottosson.glass.gallery.models;
 //  Created by Viddi on 12/8/13.
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -15,8 +14,6 @@ import android.view.WindowManager;
 
 import java.io.File;
 
-import is.vidarottosson.glass.gallery.R;
-
 public class PictureItem extends FileItem implements Parcelable {
 
 	public static final String TAG = PictureItem.class.getSimpleName();
@@ -27,8 +24,6 @@ public class PictureItem extends FileItem implements Parcelable {
     public static final String EXTENSION_BMP = ".bmp";
 
 	public static final String EXTENSIONS_PICTURE[] = {EXTENSION_PNG, EXTENSION_JPG, EXTENSION_JPEG, EXTENSION_BMP};
-
-	private Bitmap mBitmap;
 
     @Override
     public int describeContents() {
@@ -59,7 +54,7 @@ public class PictureItem extends FileItem implements Parcelable {
 		super(file);
 	}
 
-	public void createBitmap(Context context) {
+	public Bitmap createBitmap(Context context) {
 		WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = windowManager.getDefaultDisplay();
 		Point size = new Point();
@@ -72,32 +67,12 @@ public class PictureItem extends FileItem implements Parcelable {
 
 		// Screen dimensions are 640x360
 
-		mBitmap = Bitmap.createScaledBitmap(tempBitmap, width, height, false);
+		Bitmap bitmap = Bitmap.createScaledBitmap(tempBitmap, width, height, false);
 		tempBitmap.recycle();
 
 		Log.i(TAG, "Created Bitmap");
+
+        return bitmap;
 	}
 
-	public void destroyBitmap() {
-		if (isLoaded()) {
-			mBitmap.recycle();
-			mBitmap = null;
-			Log.i(TAG, "Recycled Bitmap");
-		}
-	}
-
-	public boolean isLoaded() {
-        return mBitmap != null && !mBitmap.isRecycled();
-    }
-
-	public Bitmap getBitmap() {
-		if (!isLoaded()) {
-			return BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_question);
-		}
-		return mBitmap;
-	}
-
-	public void setBitmap(Bitmap bitmap) {
-		mBitmap = bitmap;
-	}
 }
