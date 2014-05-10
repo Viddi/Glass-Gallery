@@ -6,7 +6,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.ImageView;
 
 import com.google.android.glass.widget.CardScrollAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import is.vidarottosson.glass.gallery.R;
@@ -28,11 +28,15 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 	private Context mContext;
 	private List<PictureItem> mPictureItems;
 
+    private List<AsyncBitmapLoader> mBitmapLoaders;
 	private LruCache<String, Bitmap> mMemoryCache;
+
+    public static final int MAX_PICTURES_LOADING = 5;
 
 	public PictureScrollAdapter(Context context, List<PictureItem> pictureItems) {
 		mContext = context;
 		mPictureItems = pictureItems;
+        mBitmapLoaders = new ArrayList<AsyncBitmapLoader>(MAX_PICTURES_LOADING);
 
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         final int memClassBytes = am.getMemoryClass() * 1024 * 1024;
@@ -73,9 +77,10 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 			holder = (ViewHolder) view.getTag();
 		}
 
+        checkTasks();
+
 		if (getBitmapFromMemCache(picture.getPath()) != null) {
 			holder.imgPicture.setImageBitmap(getBitmapFromMemCache(picture.getPath()));
-            Log.d(TAG, "Bitmap exists");
 		}
         else {
 			loadBitmap(picture, holder.imgPicture);
@@ -98,6 +103,19 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 		ImageView imgPicture;
 	}
 
+	public void checkTasks() {
+
+		if (mBitmapLoaders.size() > MAX_PICTURES_LOADING) {
+			AsyncBitmapLoader loader = mBitmapLoaders.get(0);
+
+			if (loader.getStatus() == AsyncTask.Status.RUNNING) {
+				loader.cancel(true);
+			}
+
+			mBitmapLoaders.remove(0);
+		}
+	}
+
 	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
 		if (getBitmapFromMemCache(key) == null) {
 			mMemoryCache.put(key, bitmap);
@@ -113,14 +131,14 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 
 		if (bitmap != null) {
 			imageView.setImageBitmap(bitmap);
-            Log.d(TAG, "Bitmap exists");
         }
         else {
 			imageView.setImageResource(R.drawable.ic_placeholder_photo);
 
             AsyncBitmapLoader asyncBitmapLoader = new AsyncBitmapLoader(imageView, picture);
             asyncBitmapLoader.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-            Log.d(TAG, "Bitmap doesn't exist");
+
+            mBitmapLoaders.add(asyncBitmapLoader);
 		}
 	}
 
@@ -146,7 +164,6 @@ public class PictureScrollAdapter extends CardScrollAdapter {
 			if (bitmap != null) {
 				mImageView.setImageBitmap(bitmap);
                 addBitmapToMemoryCache(mPicture.getPath(), bitmap);
-                Log.d(TAG, "Successfully loaded bitmap with path: " + mPicture.getPath());
 			}
 		}
 
