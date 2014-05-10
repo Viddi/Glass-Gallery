@@ -87,11 +87,11 @@ public class PictureItem extends FileItem implements Parcelable {
 	}
 
 	public boolean isLoaded() {
-        return mBitmap != null;
+        return mBitmap != null && !mBitmap.isRecycled();
     }
 
 	public Bitmap getBitmap() {
-		if (mBitmap.isRecycled()) {
+		if (!isLoaded()) {
 			return BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.ic_question);
 		}
 		return mBitmap;

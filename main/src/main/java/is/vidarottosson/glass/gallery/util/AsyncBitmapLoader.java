@@ -28,7 +28,9 @@ public class AsyncBitmapLoader extends AsyncTask<String, String, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
-        mPicture.createBitmap(mContext);
+        if (!isCancelled()) {
+            mPicture.createBitmap(mContext);
+        }
 
         return null;
     }

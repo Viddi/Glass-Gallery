@@ -28,7 +28,7 @@ public class PictureScrollAdapter extends CardScrollAdapter {
     private List<Integer> mCachedPositions;
     private List<AsyncBitmapLoader> mBitmapLoaders;
 
-    public static final int MAX_PICTURES_CACHE = 10;
+    public static final int MAX_PICTURES_CACHE = 5;
 
 	public PictureScrollAdapter(Context context, List<PictureItem> pictureItems) {
 		mContext = context;
