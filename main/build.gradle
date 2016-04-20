@@ -9,18 +9,18 @@ repositories {
 
 android {
     compileSdkVersion 'Google Inc.:Glass Development Kit Preview:19'
-    buildToolsVersion '20.0.0'
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "is.vidarottosson.glass.gallery"
         minSdkVersion 19
         targetSdkVersion 19
-        versionCode 3
-        versionName "1.1.1"
+        versionCode 4
+        versionName '1.2.0'
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
